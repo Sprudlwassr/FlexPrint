@@ -1,0 +1,4 @@
+(sym_lib_table
+  (version 7)
+  (lib (name "TMC2209-LA")(type "KiCad")(uri "${DOWNLOADS}/ul_TMC2209-LA/KiCADv6/2025-10-17_07-06-21.kicad_sym")(options "")(descr ""))
+)

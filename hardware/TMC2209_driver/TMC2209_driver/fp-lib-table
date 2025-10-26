@@ -1,0 +1,4 @@
+(fp_lib_table
+  (version 7)
+  (lib (name "TMC2209-LA")(type "KiCad")(uri "C:/Users/FabPac00/Nextcloud/0_HTL/Diplomarbeit/GitHub/67ABELI_FlexPrint/hardware/FlexPrint_library/footprints.pretty")(options "")(descr ""))
+)
