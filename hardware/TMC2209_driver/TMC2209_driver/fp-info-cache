@@ -1,4 +1,4 @@
-24744409457005927
+24740889675970576
 Audio_Module
 Reverb_BTDR-1H
 Digital Reverberation Unit, http://www.belton.co.kr/inc/downfile.php?seq=17&file=pdf (footprint from http://www.uk-electronic.de/PDF/BTDR-1.pdf)
@@ -11836,13 +11836,6 @@ connector Harting har-flexicon horizontal
 0
 14
 13
-Connector_Harting
-Untitled
-
-
-0
-0
-0
 Connector_Harwin
 Harwin_Gecko-G125-FVX0605L0X_2x03_P1.25mm_Vertical
 Harwin Gecko Connector, 6 pins, dual row female, vertical entry, PN:G125-FVX0605L0X, https://content.harwin.com/m/60a18b02a2a99a14/original/DRG-00168-Technical-Drawing-Datasheet-G125-FVXXX05L0P-pdf.pdf
@@ -57463,12 +57456,26 @@ emi filter
 5
 5
 FlexPrint
+SolderJumper_3Pads
+
+
+0
+3
+3
+FlexPrint
 TMC2209_QFN28
 
 TMC2209-LA 
 0
 29
 29
+FlexPrint
+TRIMMER_3312J-1-203E
+
+
+0
+3
+3
 Fuse
 FuseHolder_Blade_ATO_Littelfuse_FLR_178.6165
 Littelfuse fuse holder for ATO/FKS blade fuses, 80V, vertical, 20 x 6mm, PCB thickness up to 1.5mm, http://www.littelfuse.com/~/media/commercial-vehicle/datasheets/automotive-fuse-holders/ato/littelfuse-fuse-holder-ato-flr-pcb-datasheet.pdf
@@ -92882,27 +92889,6 @@ Logo WEEE
 0
 0
 0
-TMC2209-LA
-QFN28_5X5_TRI
-
-TMC2209-LA 
-0
-29
-29
-TMC2209-LA
-QFN28_5X5_TRI-L
-
-TMC2209-LA 
-0
-29
-29
-TMC2209-LA
-QFN28_5X5_TRI-M
-
-TMC2209-LA 
-0
-29
-29
 TerminalBlock
 TerminalBlock_Altech_AK300-2_P5.00mm
 Altech AK300 terminal block, pitch 5.0mm, 45 degree angled, see http://www.mouser.com/ds/2/16/PCBMETRC-24178.pdf
