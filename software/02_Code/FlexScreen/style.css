@@ -1,0 +1,82 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+@font-face {
+    font-family: Quicksilver_Italic;
+    src: url('../fonts/Quicksilver Italic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: Quicksilver;
+    src: url('../fonts/Quicksilver.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.main{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/*Infoleiste -> Oben*/
+.header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 12.5vh;
+    background-color: #3E0703;
+    padding: 20px;
+}
+
+.headerCenter{
+    display: flex;
+    align-items: center;
+    font-family: Quicksilver_Italic;
+    font-size: 5vh;
+    color: #FFF0C4;
+    
+}
+
+.headerLeft{
+    display: flex;
+    align-items: center;
+    font-family: Quicksilver;
+    font-size: 3vh;
+    color: #FFF0C4;
+}
+
+.headerRight{
+    display: flex;
+    align-items: center;
+    font-family: Quicksilver;
+    color: #FFF0C4;
+
+}
+
+
+.menu{
+    display: flex;
+    flex-direction: column;
+    height: 87.5vh;
+    border-top: 1px solid black;
+    
+}
+
+.menuBody{
+    display: flex;
+    height: 75vh;
+    background-color: #8ABEB9;
+    background-image: linear-gradient(to bottom, #8ABEB9, #305669);
+}
+
+.menuFooter{
+    display: flex;
+    height: 12.5vh;
+    background-color: #305669;
+}
