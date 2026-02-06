@@ -2,7 +2,7 @@
   "board": {
     "active_layer": 0,
     "active_layer_preset": "",
-    "auto_track_width": true,
+    "auto_track_width": false,
     "hidden_netclasses": [],
     "hidden_nets": [],
     "high_contrast_mode": 0,
@@ -37,7 +37,6 @@
       "grid",
       "footprints_front",
       "footprints_back",
-      "footprint_values",
       "footprint_references",
       "tracks",
       "drc_errors",
@@ -89,16 +88,16 @@
       9
     ],
     "col_widths": [
-      354,
-      339,
-      210,
-      145,
-      210,
-      210,
-      210,
-      154,
-      210,
-      210
+      162,
+      147,
+      91,
+      72,
+      91,
+      100,
+      91,
+      76,
+      91,
+      91
     ],
     "custom_group_rules": [],
     "expanded_rows": [],
