@@ -18,65 +18,135 @@
     font-style: normal;
 }
 
+/* ganzes Fenster */
 .main{
     display: flex;
     flex-direction: column;
     min-height: 100vh;
 }
 
-/*Infoleiste -> Oben*/
+/*Infoleiste -> Oben - Kopfleiste*/
 .header{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     height: 12.5vh;
-    background-color: #3E0703;
+    background-color: #800000;
     padding: 20px;
 }
 
 .headerCenter{
+    flex: 1;
     display: flex;
+    justify-content: center;
     align-items: center;
     font-family: Quicksilver_Italic;
     font-size: 5vh;
-    color: #FFF0C4;
-    
+    color: #DAD4B5;
 }
 
 .headerLeft{
+    flex: 1;
     display: flex;
+    justify-content: flex-start;
     align-items: center;
     font-family: Quicksilver;
     font-size: 3vh;
-    color: #FFF0C4;
+    color: #DAD4B5;
 }
 
 .headerRight{
+    flex: 1;
     display: flex;
+    justify-content: flex-end;
     align-items: center;
     font-family: Quicksilver;
-    color: #FFF0C4;
+    color: #DAD4B5;
 
 }
 
-
+/* Menüfenster */
 .menu{
     display: flex;
     flex-direction: column;
     height: 87.5vh;
-    border-top: 1px solid black;
-    
+    border-top: 1px solid #F2E8C6;
 }
 
 .menuBody{
     display: flex;
     height: 75vh;
-    background-color: #8ABEB9;
-    background-image: linear-gradient(to bottom, #8ABEB9, #305669);
+    background-color: #800000;
 }
 
+
+/* Fußleiste */
 .menuFooter{
     display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     height: 12.5vh;
-    background-color: #305669;
+    background-color: #800000;
+    border-top: 1px solid #F2E8C6;
+    padding: 20px;
+}
+
+.dashboard{
+    flex: 1;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+#btnDashboard{
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    color: inherit;
+    font: inherit;
+
+    font-family: Quicksilver;
+    font-size: 3vh;
+    color: #DAD4B5;
+}
+
+.job{
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#btnJob{
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    color: inherit;
+    font: inherit;
+
+    font-family: Quicksilver;
+    font-size: 3vh;
+    color: #DAD4B5;
+}
+
+.system{
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+#btnSystem{
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    color: inherit;
+    font: inherit;
+
+    font-family: Quicksilver;
+    font-size: 3vh;
+    color: #DAD4B5;
 }
