@@ -50,10 +50,21 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
+}
+
+#btnBack{
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    color: inherit;
+    font: inherit;
+
     font-family: Quicksilver;
     font-size: 3vh;
     color: #DAD4B5;
 }
+
 
 .headerRight{
     flex: 1;
@@ -61,6 +72,7 @@
     justify-content: flex-end;
     align-items: center;
     font-family: Quicksilver;
+    font-size: 3vh;
     color: #DAD4B5;
 
 }
