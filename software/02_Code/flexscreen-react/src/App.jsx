@@ -1,46 +1,89 @@
 import { useState } from 'react'
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'; // Um zwischen verschieden HTML-Inhalten im Body zu wechseln
-import Dashboard from './pages/Dashboard';
-import Jobs from './pages/Jobs';
+import { useNavigate } from 'react-router-dom'; // Für den Startscreen
+
+// import Dashboard from './menu_content/Dashboard.jsx';
+//import Job from './menu_content/Job.jsx';
+//import System from './menu_content/System.jsx';
+
+import { useSortable } from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
+
+//import { Rnd } from 'react-rnd'; // Für die Widgets innerhalb des Menüs
+//import Dashboard from './pages/Dashboard';
+//import Jobs from './pages/Jobs';
+
+//Startscreen - Zeigt die wichtigstes Infos an
+const StartScreen = () => {
+  const navigate = useNavigate();
+
+  return (
+    <div className="start-screen" onClick={() => navigate('/dashboard')}>
+      <h1>FLEXPRINT</h1>
+    </div>
+  );
+};
+
+
+// Platzhalter, inhalte für die Widgets
+const Dashboard = () => <div className="menuBody"></div>;
+const Job = () => <div className="menuBody">Körper: Job Liste</div>;
+const System = () => <div className="menuBody">Körper: Systemeinstellungen</div>;
 
 function App() {
   const [count, setCount] = useState(0)
-
   return (
-    <BrowserRouter>
-    <div className = "main">
-        <div className = "header">
-            <div className = "headerLeft">
-                <button id="btnBack">Back</button>
+    <BrowserRouter> {/* Braucht es, damit man navigieren kann */}
+    <Routes>
+    <Route path="/" element={<StartScreen />} /> {/* 1. Startscreen/Infoscreen (ohne Header/Footer) */}
+    <Route path="*" element={    
+        <div className = "main">
+            <div className = "header">
+                <div className = "headerLeft">
+                    <Link to="/">
+                    <button id="btnBack">Back</button>
+                    </Link>
+                </div>
+                <div className="headerCenter">
+                    Flexprint
+                </div>
+                <div className = "headerRight">
+                    Connected
+                </div>
             </div>
-            <div className="headerCenter">
-                Flexprint
-            </div>
-            <div className = "headerRight">
-                Connected
+
+            <div className = "menu">
+                <div className = "menuBody">
+                    <Routes>
+                        <Route path="/dashboard" element={<Dashboard />} />
+                        <Route path="/jobs" element={<Job />} />
+                        <Route path="/system" element={<System />} />
+                    </Routes>
+                </div>
+
+                <div className = "menuFooter">
+                    <div className="dashboard">
+                        <Link to="/dashboard">
+                            <button id="btnDashboard">Dashboard</button>
+                        </Link>
+                    </div>
+                    <div className="job">
+                        <Link to="/jobs">
+                            <button id="btnJob">Job</button>
+                        </Link>
+                    </div>
+                    <div className="system">
+                        <Link to="/system">
+                            <button id="btnSystem">System</button>
+                        </Link>
+                    </div>
+                </div>
             </div>
         </div>
-        <div className = "menu">
-            <Routes>
-            <div className = "menuBody">
-                Körper
-            </div>
-            </Routes>
-            <div className = "menuFooter">
-                <div className="dashboard">
-                    <button id="btnDashboard">Dashboard</button>
-                </div>
-                <div className="job">
-                    <button id="btnJob">Job</button>
-                </div>
-                <div className="system">
-                    <button id="btnSystem">System</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    } />
+    </Routes>
     </BrowserRouter>
-  )
+  );
 }
 
 export default App

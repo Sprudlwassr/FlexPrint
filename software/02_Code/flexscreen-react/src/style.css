@@ -18,6 +18,17 @@
     font-style: normal;
 }
 
+.start-screen{
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #800000;
+    font-family: Quicksilver_Italic;
+    font-size: 5vh;
+    color: #DAD4B5;
+}
+
 /* ganzes Fenster */
 .main{
     display: flex;
@@ -86,11 +97,28 @@
 }
 
 .menuBody{
-    display: flex;
+    display: grid;
+
+    /* Zwei gleich große Spalten und Zeilen */
+    grid-template-columns: repeat(2, 1fr); 
+    grid-template-rows: repeat(2, 1fr);
+    gap: 15px; /* Etwas mehr Platz zwischen den Kacheln */
+
     height: 75vh;
     background-color: #800000;
+
+    box-sizing: border-box; /* Damit sich das menuBody nicht vergrößert */
 }
 
+.widget-tile {
+    background: white;
+    border-radius: 12px; /* Etwas rundere Ecken sehen moderner aus */
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    touch-action: none; /* Damit nur Das Widget verschoben wird */
+    overflow: hidden; /* Damit der Inhalt nicht über die runden Ecken ragt */
+}
 
 /* Fußleiste */
 .menuFooter{
