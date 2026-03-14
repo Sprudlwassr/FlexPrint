@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { DndContext, closestCenter } from '@dnd-kit/core';
 import { arrayMove, SortableContext, rectSortingStrategy } from '@dnd-kit/sortable';
-import { SortableWidget } from '../drag_and_drop/SortableWidget.jsx';
+import { SortableWidget } from '../dragAndDrop/SortableWidget.jsx';
 
 const Dashboard = () => {
   const [items, setItems] = useState([
@@ -24,7 +24,7 @@ const Dashboard = () => {
 
   return (
     <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
-      <div className="menuBody"> {/* Hier greift dein 2x2 Grid aus der style.css */}
+      <div className="menuBodyWidgets"> {/* Hier greift dein 2x2 Grid aus der style.css */}
         <SortableContext items={items} strategy={rectSortingStrategy}>
           {items.map((item) => (
             <SortableWidget key={item.id} id={item.id} title={item.title}>
