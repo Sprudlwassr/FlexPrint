@@ -1706,7 +1706,7 @@
 			(uuid "fcb42a93-1325-4fd7-a8fa-aec9e8009ad5")
 		)
 		(embedded_fonts no)
-		(model "${KICAD9_3DMODEL_DIR}/Package_SO.3dshapes/Texas_R-PDSO-G8_EP2.95x4.9mm_Mask2.4x3.1mm.wrl"
+		(model "${KICAD9_3DMODEL_DIR}/Package_SO.3dshapes/Texas_HTSOP-8-1EP_3.9x4.9mm_P1.27mm_EP2.85x4.9mm_Mask2.4x3.1mm_ThermalVias.wrl"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -11505,7 +11505,7 @@
 		(descr "Shielded Power Inductor, Wuerth Elektronik, WE-PDF, SMD, https://katalog.we-online.de/pbs/datasheet/7447797022.pdf")
 		(tags "Choke Shielded Power Inductor WE-PDF Wuerth")
 		(property "Reference" "L1"
-			(at -6.5 0 180)
+			(at -6.5 0 0)
 			(layer "F.SilkS")
 			(uuid "fbb98cc7-85c1-49ee-bda3-34d0f5e0c126")
 			(effects
@@ -12062,7 +12062,7 @@
 			(uuid "6adacff0-7e87-4ade-8263-f12fe898ba55")
 		)
 		(embedded_fonts no)
-		(model "${KICAD9_3DMODEL_DIR}/Inductor_SMD.3dshapes/L_Wuerth_WE-PDF.wrl"
+		(model "${DOWNLOADS}/ul_7447798720/Download_STP_WE-PDF-1064_rev1.stp"
 			(offset
 				(xyz 0 0 0)
 			)
@@ -37252,7 +37252,7 @@
 		(property "Reference" "CN2"
 			(at -1.27 2.77 0)
 			(layer "B.SilkS")
-			(uuid "fc3271be-e24f-4c0e-b206-83f9c6eecf4a")
+			(uuid "50320d95-4d69-4fcb-9737-49994e152fff")
 			(effects
 				(font
 					(size 1 1)
@@ -37264,7 +37264,7 @@
 		(property "Value" "NUCLE_F446RE_MORPHO_CN10"
 			(at -1.27 -48.49 0)
 			(layer "B.Fab")
-			(uuid "3bedb879-64f3-4144-bae9-0d2d45d879bb")
+			(uuid "077278a4-571d-4831-922c-8617d4d8449d")
 			(effects
 				(font
 					(size 1 1)
@@ -37278,7 +37278,7 @@
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
-			(uuid "231b7751-8912-49c5-9786-43cdffedadbf")
+			(uuid "9e615a94-ab2d-48d6-bb46-c96b1159d8aa")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -37292,7 +37292,7 @@
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
-			(uuid "cfcf000d-ffe2-421c-b7aa-27ef45c97195")
+			(uuid "dc3dd2fb-f2ab-460a-a599-6ae392c8b7b5")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -37909,13 +37909,13 @@
 		(embedded_fonts no)
 		(model "${KICAD9_3DMODEL_DIR}/Connector_PinSocket_2.54mm.3dshapes/PinSocket_2x19_P2.54mm_Vertical.wrl"
 			(offset
-				(xyz 0 0 0)
+				(xyz -2.5 0 -1.5)
 			)
 			(scale
 				(xyz 1 1 1)
 			)
 			(rotate
-				(xyz 0 0 0)
+				(xyz -0 -180 -0)
 			)
 		)
 	)
@@ -38585,13 +38585,13 @@
 		(embedded_fonts no)
 		(model "${KICAD9_3DMODEL_DIR}/Connector_PinSocket_2.54mm.3dshapes/PinSocket_2x19_P2.54mm_Vertical.wrl"
 			(offset
-				(xyz 0 0 0)
+				(xyz -2.5 0 -1.5)
 			)
 			(scale
 				(xyz 1 1 1)
 			)
 			(rotate
-				(xyz 0 0 0)
+				(xyz -0 -180 -0)
 			)
 		)
 	)
@@ -38606,7 +38606,7 @@
 		(layer "Edge.Cuts")
 		(uuid "16b1cb35-bf9d-42ef-a596-a0a2a64a16d5")
 	)
-	(gr_text "FlexPrint_Main8D-2\n02.02.2026\nFabPac  67ABELI"
+	(gr_text "FlexPrint-Main8D-3\n2026-02-06\nFabPac  67ABELI"
 		(at 125 99.4 0)
 		(layer "F.SilkS")
 		(uuid "1cb9193e-10bf-4d57-8ceb-59511077ab5c")
@@ -59478,12 +59478,6 @@
 		(members "74fd2946-a660-4371-943f-0cd12f46a394" "ee8d0f6f-d045-4deb-855c-3e32f39bf64f"
 			"f3396fe5-c6e0-4d3d-925f-7d1a3423b94f" "f4167293-2034-497e-8e24-c82b823752f9"
 			"f7d88ecf-553a-4fdb-a7ce-69e4ea2b925c" "fe2f7003-c150-495a-9fe6-9d5a412c3feb"
-		)
-	)
-	(group ""
-		(uuid "f449ab5e-4ad7-437f-874b-288a7046db4f")
-		(members "048fcc33-521f-405f-a3b4-84bea92967a4" "26936854-e54c-4f50-8b33-9aa561615916"
-			"3c914597-01ca-46de-885b-16f9a62684c9" "9b9f7521-c1e4-4015-8d2c-53375a615cd6"
 		)
 	)
 	(embedded_fonts no)

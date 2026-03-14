@@ -7874,6 +7874,26 @@
 		)
 		(uuid "f44ffbfa-8855-4568-b2d6-6ff24fbf144a")
 	)
+	(text_box "TODO:\n	-part cooling fans auf 24V\n	-mehr versorgunsanschlüsse (5V,12V usw)\n	-Verpolschutz\n\nEventuelle TODO's:\n	-wenn viel mehr funktionen benötigt werden -> eigenen µC 	verwenden statt devBoard\n		-beschaltung dafür	\n		-USB für Raspi"
+		(exclude_from_sim no)
+		(at 422.91 12.7 0)
+		(size 73.66 44.45)
+		(margins 0.9525 0.9525 0.9525 0.9525)
+		(stroke
+			(width 0)
+			(type solid)
+		)
+		(fill
+			(type none)
+		)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left top)
+		)
+		(uuid "ce546b86-d7ce-4e34-bf35-42017992c1a5")
+	)
 	(junction
 		(at 327.66 227.33)
 		(diameter 0)
