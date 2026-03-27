@@ -97,20 +97,34 @@
 }
 
 .menuBody{
+    height: 75vh;
+    background-color: #800000;
+    box-sizing: border-box; /* Damit sich das menuBody nicht vergrößert */
+}
+
+
+.menuBodyHeader{
+    height: 33.33%;
+}
+
+.menuBodyContentWrapper{
+    height: 66.66%
+}
+
+.menuBodyWidgetBox{
     display: grid;
+    height: 100%;
 
     /* Zwei gleich große Spalten und Zeilen */
     grid-template-columns: repeat(2, 1fr); 
     grid-template-rows: repeat(2, 1fr);
     gap: 15px; /* Etwas mehr Platz zwischen den Kacheln */
-
-    height: 75vh;
-    background-color: #800000;
-
-    box-sizing: border-box; /* Damit sich das menuBody nicht vergrößert */
+    padding: 10px;
+    box-sizing: border-box; /* Wichtig! */
 }
 
 .widget-tile {
+    height: 100%;
     background: white;
     border-radius: 12px; /* Etwas rundere Ecken sehen moderner aus */
     display: flex;

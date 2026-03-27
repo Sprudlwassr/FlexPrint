@@ -2,11 +2,12 @@ import { useState } from 'react'
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'; // Um zwischen verschieden HTML-Inhalten im Body zu wechseln
 import { useNavigate } from 'react-router-dom'; // Für den Startscreen
 
-// import Dashboard from './menu_content/Dashboard.jsx';
+//
+import Dashboard from './menuContent/Dashboard.jsx';
 //import Job from './menu_content/Job.jsx';
 //import System from './menu_content/System.jsx';
 
-import { useSortable } from '@dnd-kit/sortable';
+//import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 
 //import { Rnd } from 'react-rnd'; // Für die Widgets innerhalb des Menüs
@@ -26,7 +27,7 @@ const StartScreen = () => {
 
 
 // Platzhalter, inhalte für die Widgets
-const Dashboard = () => <div className="menuBody"></div>;
+//const Dashboard = () => <div className="menuBody"></div>;
 const Job = () => <div className="menuBody">Körper: Job Liste</div>;
 const System = () => <div className="menuBody">Körper: Systemeinstellungen</div>;
 
@@ -54,13 +55,17 @@ function App() {
 
             <div className = "menu">
                 <div className = "menuBody">
-                    <Routes>
-                        <Route path="/dashboard" element={<Dashboard />} />
-                        <Route path="/jobs" element={<Job />} />
-                        <Route path="/system" element={<System />} />
-                    </Routes>
+                    <div className="menuBodyHeader">
+                        test
+                    </div>
+                    <div className="menuBodyContentWrapper">
+                        <Routes>
+                            <Route path="/dashboard" element={<Dashboard />} />
+                            <Route path="/jobs" element={<Job />} />
+                            <Route path="/system" element={<System />} />
+                        </Routes>
+                    </div>
                 </div>
-
                 <div className = "menuFooter">
                     <div className="dashboard">
                         <Link to="/dashboard">
