@@ -3791,6 +3791,17 @@
 			(uuid "8207a691-14c0-4ea7-b8d7-56584b57cd09")
 		)
 		(embedded_fonts no)
+		(model "${DOWNLOADS}/TMC2209_LA/TMC2209-LA.STEP"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz -90 -0 -0)
+			)
+		)
 	)
 	(footprint "Resistor_SMD:R_0805_2012Metric"
 		(layer "F.Cu")
@@ -6184,6 +6195,17 @@
 			(uuid "9b4c1e98-226a-4c85-8575-c5bc6cf5494a")
 		)
 		(embedded_fonts no)
+		(model "${DOWNLOADS}/3312J-1-203E.STEP"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz -90 -0 -0)
+			)
+		)
 	)
 	(gr_rect
 		(start 142.033483 89.156172)
@@ -6207,6 +6229,82 @@
 				(bold yes)
 			)
 			(justify left bottom)
+		)
+	)
+	(dimension
+		(type orthogonal)
+		(layer "Dwgs.User")
+		(uuid "0ab58353-56b0-40a1-859b-6e826614149a")
+		(pts
+			(xy 157.7557 89.430001) (xy 157.7557 109.870001)
+		)
+		(height 4.2963)
+		(orientation 1)
+		(format
+			(prefix "")
+			(suffix "")
+			(units 3)
+			(units_format 0)
+			(precision 4)
+			(suppress_zeroes yes)
+		)
+		(style
+			(thickness 0.05)
+			(arrow_length 1.27)
+			(text_position_mode 0)
+			(arrow_direction outward)
+			(extension_height 0.58642)
+			(extension_offset 0.5)
+			(keep_text_aligned yes)
+		)
+		(gr_text "20,44"
+			(at 160.902 99.650001 90)
+			(layer "Dwgs.User")
+			(uuid "0ab58353-56b0-40a1-859b-6e826614149a")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+	)
+	(dimension
+		(type orthogonal)
+		(layer "Dwgs.User")
+		(uuid "8cc22c03-ca13-4034-8a75-7e6e9e686823")
+		(pts
+			(xy 157.7557 109.870001) (xy 142.274149 109.826271)
+		)
+		(height 3.413999)
+		(orientation 0)
+		(format
+			(prefix "")
+			(suffix "")
+			(units 3)
+			(units_format 0)
+			(precision 2)
+			(suppress_zeroes yes)
+		)
+		(style
+			(thickness 0.05)
+			(arrow_length 1.27)
+			(text_position_mode 0)
+			(arrow_direction outward)
+			(extension_height 0.58642)
+			(extension_offset 0.5)
+			(keep_text_aligned yes)
+		)
+		(gr_text "15,48"
+			(at 150.014924 112.134 0)
+			(layer "Dwgs.User")
+			(uuid "8cc22c03-ca13-4034-8a75-7e6e9e686823")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
 		)
 	)
 	(segment

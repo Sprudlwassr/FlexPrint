@@ -277,7 +277,7 @@
 		(property "Reference" "C10"
 			(at -3.334 -0.338 90)
 			(layer "F.SilkS")
-			(uuid "32ff1858-a9bf-4b8c-be88-51d6eea6eddd")
+			(uuid "6f403228-c21f-40b5-9447-b23d2f8fce6d")
 			(effects
 				(font
 					(size 1 1)
@@ -288,7 +288,7 @@
 		(property "Value" "100n"
 			(at 0 1.68 90)
 			(layer "F.Fab")
-			(uuid "ce76581c-8da8-49d6-99e7-1bc7e2015e20")
+			(uuid "fbea2590-6cd5-4375-bc4b-e65e9b813d05")
 			(effects
 				(font
 					(size 1 1)
@@ -301,7 +301,7 @@
 			(unlocked yes)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "ca41d05c-9230-4b64-a4fc-ffc7e8031147")
+			(uuid "03905f5a-e330-458c-b05b-9855a6b6f127")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -314,7 +314,7 @@
 			(unlocked yes)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "b573dee5-24ca-4266-afe7-085dfeb91982")
+			(uuid "e08eb7d0-fadc-49e6-a534-71388f68baf0")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3614,7 +3614,7 @@
 		(property "Reference" "C23"
 			(at 5.846 2.486 0)
 			(layer "F.SilkS")
-			(uuid "0b648a7d-53e6-4729-89af-d48bc6b3d50b")
+			(uuid "ad7a4e32-cc60-4b8f-93cc-302902a1a8eb")
 			(effects
 				(font
 					(size 1 1)
@@ -3625,7 +3625,7 @@
 		(property "Value" "100µ"
 			(at 0 5.2 0)
 			(layer "F.Fab")
-			(uuid "0685de8e-9454-4621-8c18-17cae758b1d7")
+			(uuid "43f4c317-7da1-4faa-86b1-7846d516a5be")
 			(effects
 				(font
 					(size 1 1)
@@ -3638,7 +3638,7 @@
 			(unlocked yes)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "e5f61bc2-c578-4cea-896f-62fa5d41a9a9")
+			(uuid "54886edf-8589-415c-aa86-9ee3f7397cc9")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3651,7 +3651,7 @@
 			(unlocked yes)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "a6d389d3-de39-484f-a1b7-403e7ae520b1")
+			(uuid "3099788e-01a7-4ad0-9892-cfedb770822b")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13730,6 +13730,17 @@
 			)
 			(rotate
 				(xyz 0 0 0)
+			)
+		)
+		(model "${DOWNLOADS}/DG127-THR-5.08-02P-13-80AH.STEP"
+			(offset
+				(xyz 5 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz -90 -0 -180)
 			)
 		)
 	)
@@ -24625,13 +24636,24 @@
 		(embedded_fonts no)
 		(model "${KICAD9_3DMODEL_DIR}/TerminalBlock.3dshapes/TerminalBlock_bornier-2_P5.08mm.wrl"
 			(offset
-				(xyz 2.539999962 0 0)
+				(xyz 2.54 0 0)
 			)
 			(scale
 				(xyz 1 1 1)
 			)
 			(rotate
-				(xyz 0 0 0)
+				(xyz -0 -0 -0)
+			)
+		)
+		(model "${DOWNLOADS}/DG127-THR-5.08-02P-13-80AH.STEP"
+			(offset
+				(xyz 5 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz -90 -0 -180)
 			)
 		)
 	)
@@ -24642,7 +24664,7 @@
 		(property "Reference" "U13"
 			(at -9.648 -10 0)
 			(layer "F.SilkS")
-			(uuid "caad1a94-53e4-4a7e-818c-4dccc4e4c6b4")
+			(uuid "d4983ce2-4cf0-4a94-b8b3-29f2b4001762")
 			(effects
 				(font
 					(size 1 1)
@@ -24653,7 +24675,7 @@
 		(property "Value" "E"
 			(at -2.378189 -11.199549 0)
 			(layer "F.Fab")
-			(uuid "819513c7-f5c6-4cad-b5bc-cba8a37d4761")
+			(uuid "1bcf3859-532d-48fa-b7a6-bdfa6805a9b4")
 			(effects
 				(font
 					(size 1 1)
@@ -24665,7 +24687,7 @@
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "f2956af4-fab0-4ec6-9452-21e59d320adc")
+			(uuid "c5825591-4cdf-47c5-bfa7-146c10e7e06a")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -24677,7 +24699,7 @@
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "4d089fdd-194a-4f66-ae62-6d641328fb4a")
+			(uuid "0a80d99d-01a9-4341-9f09-81d6ffb2002f")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -29495,6 +29517,17 @@
 				(xyz 0 0 0)
 			)
 		)
+		(model "${DOWNLOADS}/DG127-THR-5.08-02P-13-80AH.STEP"
+			(offset
+				(xyz 5 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz -90 -0 -180)
+			)
+		)
 	)
 	(footprint "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical"
 		(layer "F.Cu")
@@ -29760,7 +29793,7 @@
 		(property "Reference" "J47"
 			(at 0 -2.33 0)
 			(layer "F.SilkS")
-			(uuid "5ffeb1aa-ad93-4197-adff-cc35f508c4af")
+			(uuid "69ee45f2-24a7-4254-a8cb-f7bfa53d5c58")
 			(effects
 				(font
 					(size 1 1)
@@ -29771,7 +29804,7 @@
 		(property "Value" "E_MS1"
 			(at 0 4.87 0)
 			(layer "F.Fab")
-			(uuid "1872ca75-e960-4a9e-9e1e-4e5d85813b0c")
+			(uuid "80fa0405-286e-4fc4-9c99-e5d60a1bafb6")
 			(effects
 				(font
 					(size 1 1)
@@ -29784,7 +29817,7 @@
 			(unlocked yes)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "48837dd1-5e11-4530-a17e-5f2903e21972")
+			(uuid "5845df4b-8af1-462d-81ad-2db69d9e9c35")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -29797,7 +29830,7 @@
 			(unlocked yes)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "7f81b100-e768-4e2c-ba64-e94b6da73409")
+			(uuid "92d61a75-c288-4f91-b60f-a7665ad1832c")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -31886,6 +31919,17 @@
 				(xyz 0 0 0)
 			)
 		)
+		(model "${DOWNLOADS}/DG127-THR-5.08-02P-13-80AH.STEP"
+			(offset
+				(xyz 5 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz -90 -0 -180)
+			)
+		)
 	)
 	(footprint "Connector_PinHeader_2.54mm:PinHeader_1x04_P2.54mm_Vertical"
 		(layer "F.Cu")
@@ -31896,7 +31940,7 @@
 		(property "Reference" "J49"
 			(at 0 -2.33 0)
 			(layer "F.SilkS")
-			(uuid "299417f4-7dcc-4c77-a89a-5c41c7b42ae5")
+			(uuid "348041e0-f392-4462-9322-c8c4b75bb4f4")
 			(effects
 				(font
 					(size 1 1)
@@ -31907,7 +31951,7 @@
 		(property "Value" "E_Motor"
 			(at 0 9.95 0)
 			(layer "F.Fab")
-			(uuid "06c658a4-b231-459d-b155-03a53ff496be")
+			(uuid "5225c39c-9a71-4f7a-a7be-a1e600e88a7f")
 			(effects
 				(font
 					(size 1 1)
@@ -31920,7 +31964,7 @@
 			(unlocked yes)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "4899ec7e-fffc-4ebe-9dcf-2738984d64fd")
+			(uuid "614eda44-ddee-4348-a180-f8a098dc02e1")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -31933,7 +31977,7 @@
 			(unlocked yes)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "dca1cf2e-9a90-4946-8b44-b0ac398b2f0f")
+			(uuid "519bb9aa-1543-47c0-9dba-b4f209e58e15")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -32838,6 +32882,17 @@
 			)
 			(rotate
 				(xyz 0 0 0)
+			)
+		)
+		(model "${DOWNLOADS}/DG127-THR-5.08-02P-13-80AH.STEP"
+			(offset
+				(xyz 5 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz -90 -0 -180)
 			)
 		)
 	)
@@ -34584,7 +34639,7 @@
 		(property "Reference" "J45"
 			(at 0 -2.33 0)
 			(layer "F.SilkS")
-			(uuid "2a4c52ee-fa08-4bc9-b914-171669c6afdc")
+			(uuid "5108230a-be47-477c-8ccb-258b5ab7db7f")
 			(effects
 				(font
 					(size 1 1)
@@ -34595,7 +34650,7 @@
 		(property "Value" "E_MS2"
 			(at 0 4.87 0)
 			(layer "F.Fab")
-			(uuid "a98dc2a2-e941-487f-ab85-1725612459f2")
+			(uuid "419557b1-d7ee-4485-9f42-a76806b57ada")
 			(effects
 				(font
 					(size 1 1)
@@ -34608,7 +34663,7 @@
 			(unlocked yes)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "3b8df32f-2565-4941-92ef-d7b782139ecc")
+			(uuid "b34447cd-fef0-42cd-bcf4-f94b11b7f71e")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -34621,7 +34676,7 @@
 			(unlocked yes)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "59b2c3bc-60fb-4ac9-b6a5-dd8c72aa5470")
+			(uuid "93537032-5fe1-4cd9-8271-10389e959c52")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -36469,6 +36524,17 @@
 			)
 			(rotate
 				(xyz 0 0 0)
+			)
+		)
+		(model "${DOWNLOADS}/DG127-THR-5.08-02P-13-80AH.STEP"
+			(offset
+				(xyz 5 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz -90 -0 -180)
 			)
 		)
 	)

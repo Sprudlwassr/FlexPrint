@@ -7784,7 +7784,7 @@
 		)
 		(uuid "9e697199-17c1-4626-a82b-210db184ef42")
 	)
-	(text "Z4 motor"
+	(text "E2 motor"
 		(exclude_from_sim no)
 		(at 256.286 167.386 0)
 		(effects
@@ -7854,7 +7854,7 @@
 		)
 		(uuid "ed7e9cfe-a383-43e9-94af-0916c6043fe1")
 	)
-	(text "4 Z-Achsen, 1 X-Achse, 1 Y-Achse, 1 Extruder und 1 Reserve Treiber"
+	(text "3 Z-Achsen, 1 X-Achse, 1 Y-Achse, 2 Extruder und 1 Reserve Treiber"
 		(exclude_from_sim no)
 		(at 320.802 110.744 0)
 		(effects
@@ -7874,10 +7874,10 @@
 		)
 		(uuid "f44ffbfa-8855-4568-b2d6-6ff24fbf144a")
 	)
-	(text_box "TODO:\n	-part cooling fans auf 24V\n	-mehr versorgunsanschlüsse (5V,12V usw)\n	-Verpolschutz\n\nEventuelle TODO's:\n	-wenn viel mehr funktionen benötigt werden -> eigenen µC 	verwenden statt devBoard\n		-beschaltung dafür	\n		-USB für Raspi"
+	(text_box "TODO:\n	-part cooling fans auf 24V (derzeitige Treiber halten 24V auch aus)\n	-mehr versorgunsanschlüsse (5V,12V usw)\n	-Verpolschutz\n	-Position Nucleo auf der Platine ändern!!!\n\nEventuelle TODO's:\n	-wenn viel mehr funktionen benötigt werden -> eigenen µC verwenden statt devBoard\n		-beschaltung dafür	\n		-USB für Raspi"
 		(exclude_from_sim no)
-		(at 422.91 12.7 0)
-		(size 73.66 44.45)
+		(at 422.91 10.16 0)
+		(size 105.41 44.45)
 		(margins 0.9525 0.9525 0.9525 0.9525)
 		(stroke
 			(width 0)
@@ -8762,6 +8762,16 @@
 	)
 	(wire
 		(pts
+			(xy 359.41 224.79) (xy 361.95 224.79)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1175c7ca-5475-47b1-9396-e734e0334252")
+	)
+	(wire
+		(pts
 			(xy 236.22 265.43) (xy 234.95 265.43)
 		)
 		(stroke
@@ -9012,7 +9022,7 @@
 	)
 	(wire
 		(pts
-			(xy 320.04 179.07) (xy 322.58 179.07)
+			(xy 321.31 179.07) (xy 322.58 179.07)
 		)
 		(stroke
 			(width 0)
@@ -24223,7 +24233,7 @@
 	)
 	(symbol
 		(lib_id "power:+5V")
-		(at 361.95 224.79 0)
+		(at 359.41 224.79 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -24232,7 +24242,7 @@
 		(fields_autoplaced yes)
 		(uuid "820e4617-276b-48b1-b76e-6a4544e53275")
 		(property "Reference" "#PWR030"
-			(at 361.95 228.6 0)
+			(at 359.41 228.6 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -24241,7 +24251,7 @@
 			)
 		)
 		(property "Value" "+5V"
-			(at 361.95 219.71 0)
+			(at 359.41 219.71 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -24249,7 +24259,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 361.95 224.79 0)
+			(at 359.41 224.79 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -24258,7 +24268,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 361.95 224.79 0)
+			(at 359.41 224.79 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -24267,7 +24277,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"+5V\""
-			(at 361.95 224.79 0)
+			(at 359.41 224.79 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -27773,7 +27783,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 320.04 179.07 0)
+		(at 321.31 179.07 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -27782,7 +27792,7 @@
 		(fields_autoplaced yes)
 		(uuid "b9992f5e-88cc-4b78-b24c-edd79d3e0470")
 		(property "Reference" "#PWR0126"
-			(at 320.04 185.42 0)
+			(at 314.96 179.07 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -27791,7 +27801,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 320.04 184.15 0)
+			(at 320.04 175.26 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -27799,7 +27809,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 320.04 179.07 0)
+			(at 321.31 179.07 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -27808,7 +27818,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 320.04 179.07 0)
+			(at 321.31 179.07 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -27817,7 +27827,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 320.04 179.07 0)
+			(at 321.31 179.07 0)
 			(effects
 				(font
 					(size 1.27 1.27)
