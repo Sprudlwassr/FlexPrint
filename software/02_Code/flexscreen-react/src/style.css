@@ -107,15 +107,20 @@
     height: 33.33%;
 }
 
-.menuBodyWidgets{
+.menuBodyContentWrapper{
+    height: 66.66%
+}
+
+.menuBodyWidgetBox{
     display: grid;
-    height: 66.66%;
+    height: 100%;
 
     /* Zwei gleich große Spalten und Zeilen */
     grid-template-columns: repeat(2, 1fr); 
     grid-template-rows: repeat(2, 1fr);
     gap: 15px; /* Etwas mehr Platz zwischen den Kacheln */
     padding: 10px;
+    box-sizing: border-box; /* Wichtig! */
 }
 
 .widget-tile {

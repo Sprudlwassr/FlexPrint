@@ -58,7 +58,7 @@ function App() {
                     <div className="menuBodyHeader">
                         test
                     </div>
-                    <div className="menuBodyWidgets">
+                    <div className="menuBodyContentWrapper">
                         <Routes>
                             <Route path="/dashboard" element={<Dashboard />} />
                             <Route path="/jobs" element={<Job />} />
