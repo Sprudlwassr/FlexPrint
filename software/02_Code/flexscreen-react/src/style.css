@@ -5,28 +5,40 @@
 }
 
 @font-face {
-    font-family: Quicksilver_Italic;
-    src: url('assets/Fonts/Quicksilver\ Italic.ttf') format('truetype');
+    font-family: Coolvetica Rg;
+    src: url('assets/Fonts/Coolvetica\ Rg.otf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
 
-@font-face {
+:root {
+    /* Hier erstellst du deine "Konstanten" */
+    --main-font: 'Coolvetica Rg';
+    
+    /* Du kannst auch Farben so festlegen */
+    --text-color: #232e4c;
+}
+
+/* @font-face {
     font-family: Quicksilver;
     src: url('assets/Fonts/Quicksilver.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
-}
+} */
+
+/* @font-face {
+font-family: 'Harlow Solid Italic';
+font-style: normal;
+font-weight: normal;
+src: local('Harlow Solid Italic'), url('assets/Fonts/HARLOWSI_1.woff') format('woff');
+} */
 
 .start-screen{
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #800000;
-    font-family: Quicksilver_Italic;
-    font-size: 5vh;
-    color: #DAD4B5;
+    background-color: #bd9a76;
 }
 
 /* ganzes Fenster */
@@ -42,7 +54,7 @@
     flex-direction: row;
     justify-content: space-between;
     height: 12.5vh;
-    background-color: #800000;
+    background-color: #bd9a76;
     padding: 20px;
 }
 
@@ -51,9 +63,15 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    font-family: Quicksilver_Italic;
+    font-family: var(--main-font);
     font-size: 5vh;
-    color: #DAD4B5;
+    color: var(--text-color);
+}
+
+.header-logo{
+    max-height: 12vh; /* Da dein Header 12.5vh hoch ist, ist dies eine gute Größe */
+    width: auto;      /* Behält das Seitenverhältnis bei */
+    display: block;   /* Verhindert kleine Abstände unter dem Bild */
 }
 
 .headerLeft{
@@ -71,23 +89,22 @@
     color: inherit;
     font: inherit;
 
-    font-family: Quicksilver;
+    font-family: var(--main-font);
+    font-style: normal;
     font-size: 3vh;
-    color: #DAD4B5;
+    color: var(--text-color);
 }
-
 
 .headerRight{
     flex: 1;
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    font-family: Quicksilver;
+    font-family: var(--main-font);
     font-size: 3vh;
-    color: #DAD4B5;
+    color: var(--text-color);
 
 }
-
 /* Menüfenster */
 .menu{
     display: flex;
@@ -98,13 +115,35 @@
 
 .menuBody{
     height: 75vh;
-    background-color: #800000;
+    background-color: #bd9a76;
     box-sizing: border-box; /* Damit sich das menuBody nicht vergrößert */
 }
 
 
 .menuBodyHeader{
     height: 33.33%;
+    display: grid;
+    /* Wir teilen den Platz in 6 gleiche Spalten auf */
+    grid-template-columns: repeat(6, 1fr);
+    gap: 15px;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+/* Alle Reiter (Kinder) im Header */
+.header-item {
+    background-color: white; /* Oder deine Wunschfarbe */
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+/* Der dritte Reiter soll 2 Spalten breit sein */
+.header-item:nth-child(3) {
+    grid-column: span 2;
 }
 
 .menuBodyContentWrapper{
@@ -140,7 +179,7 @@
     flex-direction: row;
     justify-content: space-between;
     height: 12.5vh;
-    background-color: #800000;
+    background-color: #bd9a76;
     border-top: 1px solid #F2E8C6;
     padding: 20px;
 }
@@ -160,9 +199,9 @@
     color: inherit;
     font: inherit;
 
-    font-family: Quicksilver;
+    font-family: var(--main-font);
     font-size: 3vh;
-    color: #DAD4B5;
+    color: var(--text-color);
 }
 
 .job{
@@ -180,9 +219,9 @@
     color: inherit;
     font: inherit;
 
-    font-family: Quicksilver;
+    font-family: var(--main-font);
     font-size: 3vh;
-    color: #DAD4B5;
+    color: var(--text-color);
 }
 
 .system{
@@ -200,7 +239,7 @@
     color: inherit;
     font: inherit;
 
-    font-family: Quicksilver;
+    font-family: var(--main-font);
     font-size: 3vh;
-    color: #DAD4B5;
+    color: var(--text-color);
 }

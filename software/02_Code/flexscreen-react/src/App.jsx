@@ -3,7 +3,8 @@ import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'; // Um zwi
 import { useNavigate } from 'react-router-dom'; // Für den Startscreen
 
 //
-import Dashboard from './menuContent/Dashboard.jsx';
+import Dashboard from './menuContent/dashboardWidgets.jsx';
+import logo from './assets/Pictures/logo_brightmode_transparent.svg';
 //import Job from './menu_content/Job.jsx';
 //import System from './menu_content/System.jsx';
 
@@ -20,7 +21,7 @@ const StartScreen = () => {
 
   return (
     <div className="start-screen" onClick={() => navigate('/dashboard')}>
-      <h1>FLEXPRINT</h1>
+        <img src={logo} className="start-logo" />
     </div>
   );
 };
@@ -46,7 +47,7 @@ function App() {
                     </Link>
                 </div>
                 <div className="headerCenter">
-                    Flexprint
+                    <img src={logo} alt="Flexprint" className="header-logo"/>
                 </div>
                 <div className = "headerRight">
                     Connected
@@ -56,7 +57,11 @@ function App() {
             <div className = "menu">
                 <div className = "menuBody">
                     <div className="menuBodyHeader">
-                        test
+                        <div className="header-item">Homing</div>
+                        <div className="header-item">Temperature</div>
+                        <div className="header-item">Print</div>
+                        <div className="header-item">Actions</div>
+                        <div className="header-item">Configuration</div>
                     </div>
                     <div className="menuBodyContentWrapper">
                         <Routes>
