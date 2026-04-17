@@ -24,6 +24,7 @@ const StartScreen = () => {
         <img src={logo} className="start-logo" />
     </div>
   );
+  
 };
 
 
