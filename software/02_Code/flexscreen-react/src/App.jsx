@@ -3,8 +3,9 @@ import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'; // Um zwi
 import { useNavigate } from 'react-router-dom'; // Für den Startscreen
 
 //
-import Dashboard from './menuContent/dashboardWidgets.jsx';
+import Dashboard from './components/widgets/dashboardWidgets.jsx';
 import logo from './assets/Pictures/logo_brightmode_transparent.svg';
+import StartScreen from './screens/StartScreen';
 //import Job from './menu_content/Job.jsx';
 //import System from './menu_content/System.jsx';
 
@@ -16,16 +17,16 @@ import { CSS } from '@dnd-kit/utilities';
 //import Jobs from './pages/Jobs';
 
 //Startscreen - Zeigt die wichtigstes Infos an
-const StartScreen = () => {
-  const navigate = useNavigate();
+// const StartScreen = () => {
+//   const navigate = useNavigate();
 
-  return (
-    <div className="start-screen" onClick={() => navigate('/dashboard')}>
-        <img src={logo} className="start-logo" />
-    </div>
-  );
-  
-};
+//   return (
+//     <div className="start-screen" onClick={() => navigate('/dashboard')}>
+//         <img src={logo} className="start-logo" />
+//     </div>
+//   );
+
+// };
 
 
 // Platzhalter, inhalte für die Widgets

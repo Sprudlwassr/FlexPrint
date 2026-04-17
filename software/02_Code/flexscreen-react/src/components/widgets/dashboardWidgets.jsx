@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { DndContext, closestCenter } from '@dnd-kit/core';
 import { arrayMove, SortableContext, rectSortingStrategy } from '@dnd-kit/sortable';
-import { SortableWidget } from '../dragAndDrop/SortableWidget.jsx';
+import { SortableWidget } from '../SortableWidget.jsx';
 
 const Dashboard = () => {
   const [items, setItems] = useState([
