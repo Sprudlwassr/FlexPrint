@@ -1,99 +1,100 @@
-import { useState } from 'react'
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'; // Um zwischen verschieden HTML-Inhalten im Body zu wechseln
-import { useNavigate } from 'react-router-dom'; // Für den Startscreen
+import { useState, useEffect } from 'react'
+import { BrowserRouter, Routes, Route, Link, useNavigate, useLocation } from 'react-router-dom';
 
-//
 import Dashboard from './components/widgets/dashboardWidgets.jsx';
-import logo from './assets/Pictures/logo_brightmode_transparent.svg';
 import StartScreen from './screens/StartScreen';
-//import Job from './menu_content/Job.jsx';
-//import System from './menu_content/System.jsx';
+import TemperatureScreen from './screens/TemperatureScreen';
+import PrintScreen from './screens/PrintScreen';
+import ActionsScreen from './screens/ActionsScreen';
+import JobScreen from './screens/JobScreen';
+import ConfigurationScreen from './screens/ConfigurationScreen';
+import logo from './assets/Pictures/logo_brightmode_transparent.svg';
 
-//import { useSortable } from '@dnd-kit/sortable';
-import { CSS } from '@dnd-kit/utilities';
+const System = () => <div className="menuBody"></div>;
 
-//import { Rnd } from 'react-rnd'; // Für die Widgets innerhalb des Menüs
-//import Dashboard from './pages/Dashboard';
-//import Jobs from './pages/Jobs';
+const printerTemps = { extruder: 21, bed: 25, pi: 44 };
 
-//Startscreen - Zeigt die wichtigstes Infos an
-// const StartScreen = () => {
-//   const navigate = useNavigate();
+const START_PAGES = ['/dashboard', '/jobs', '/system'];
 
-//   return (
-//     <div className="start-screen" onClick={() => navigate('/dashboard')}>
-//         <img src={logo} className="start-logo" />
-//     </div>
-//   );
+function Layout({ time }) {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const isStartPage = START_PAGES.includes(location.pathname);
 
-// };
+  return (
+    <div className="main">
+      <div className="header">
+        <div className="headerLeft">
+          {isStartPage
+            ? <Link to="/" className="headerStartBtn">Start</Link>
+            : <button className="headerBackBtn" onClick={() => navigate(-1)}>Back</button>
+          }
+        </div>
+        <div className="headerCenter">
+          <Link to="/"><img src={logo} alt="Flexprint" className="header-logo"/></Link>
+        </div>
+        <div className="headerRight">
+          <div className="headerTemps">
+            <span className="tempItem">🌡 {printerTemps.extruder}°</span>
+            <span className="tempItem">🛏 {printerTemps.bed}°</span>
+            <span className="tempItem">Pi: {printerTemps.pi}°</span>
+          </div>
+          {time}
+        </div>
+      </div>
 
-
-// Platzhalter, inhalte für die Widgets
-//const Dashboard = () => <div className="menuBody"></div>;
-const Job = () => <div className="menuBody">Körper: Job Liste</div>;
-const System = () => <div className="menuBody">Körper: Systemeinstellungen</div>;
+      <div className="menu">
+        <div className="menuBody">
+          <div className="menuBodyContentWrapper">
+            <Routes>
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/jobs" element={<JobScreen />} />
+              <Route path="/system" element={<System />} />
+              <Route path="/temperature" element={<TemperatureScreen />} />
+              <Route path="/print" element={<PrintScreen />} />
+              <Route path="/actions" element={<ActionsScreen />} />
+              <Route path="/configuration" element={<ConfigurationScreen />} />
+            </Routes>
+          </div>
+        </div>
+        <div className="menuFooter">
+          <Link to="/dashboard" className="footerBtn">
+            <span className="footerBtnIcon">⊞</span>
+            <span className="footerBtnLabel">Dashboard</span>
+          </Link>
+          <Link to="/jobs" className="footerBtn">
+            <span className="footerBtnIcon">⬡</span>
+            <span className="footerBtnLabel">Job</span>
+          </Link>
+          <Link to="/system" className="footerBtn">
+            <span className="footerBtnIcon">⚙</span>
+            <span className="footerBtnLabel">System</span>
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 function App() {
-  const [count, setCount] = useState(0)
-  return (
-    <BrowserRouter> {/* Braucht es, damit man navigieren kann */}
-    <Routes>
-    <Route path="/" element={<StartScreen />} /> {/* 1. Startscreen/Infoscreen (ohne Header/Footer) */}
-    <Route path="*" element={    
-        <div className = "main">
-            <div className = "header">
-                <div className = "headerLeft">
-                    <Link to="/">
-                    <button id="btnBack">Back</button>
-                    </Link>
-                </div>
-                <div className="headerCenter">
-                    <img src={logo} alt="Flexprint" className="header-logo"/>
-                </div>
-                <div className = "headerRight">
-                    Connected
-                </div>
-            </div>
+  const [time, setTime] = useState('');
 
-            <div className = "menu">
-                <div className = "menuBody">
-                    <div className="menuBodyHeader">
-                        <div className="header-item">Homing</div>
-                        <div className="header-item">Temperature</div>
-                        <div className="header-item">Print</div>
-                        <div className="header-item">Actions</div>
-                        <div className="header-item">Configuration</div>
-                    </div>
-                    <div className="menuBodyContentWrapper">
-                        <Routes>
-                            <Route path="/dashboard" element={<Dashboard />} />
-                            <Route path="/jobs" element={<Job />} />
-                            <Route path="/system" element={<System />} />
-                        </Routes>
-                    </div>
-                </div>
-                <div className = "menuFooter">
-                    <div className="dashboard">
-                        <Link to="/dashboard">
-                            <button id="btnDashboard">Dashboard</button>
-                        </Link>
-                    </div>
-                    <div className="job">
-                        <Link to="/jobs">
-                            <button id="btnJob">Job</button>
-                        </Link>
-                    </div>
-                    <div className="system">
-                        <Link to="/system">
-                            <button id="btnSystem">System</button>
-                        </Link>
-                    </div>
-                </div>
-            </div>
-        </div>
-    } />
-    </Routes>
+  useEffect(() => {
+    const update = () => {
+      const now = new Date();
+      setTime(now.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' }));
+    };
+    update();
+    const interval = setInterval(update, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<StartScreen />} />
+        <Route path="*" element={<Layout time={time} />} />
+      </Routes>
     </BrowserRouter>
   );
 }
