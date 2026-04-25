@@ -9,6 +9,7 @@ export const MoonrakerProvider = ({ children }) => {
   const ws = useRef(null);
   const reconnectTimer = useRef(null);
   const pendingRequests = useRef({});
+  const activePiSensor = useRef(null);
 
   const [moonrakerConnected, setMoonrakerConnected] = useState(false);
   const [klipperState, setKlipperState] = useState('disconnected');
@@ -49,15 +50,34 @@ export const MoonrakerProvider = ({ children }) => {
         setKlipperState('error');
       }
 
-      // 2. Live-Updates abonnieren
+      // 2. Alle verfügbaren Objekte abfragen um Pi-Sensor-Namen zu finden
+      let piSensorKey = null;
       try {
-        await send('printer.objects.subscribe', {
-          objects: {
-            extruder:   ['temperature', 'target'],
-            heater_bed: ['temperature', 'target'],
-            'temperature_sensor raspberry_pi': ['temperature'],
-          },
+        const objectList = await send('printer.objects.list');
+        const keys = objectList?.objects ?? [];
+        piSensorKey = keys.find(k => k.startsWith('temperature_sensor')) ?? null;
+      } catch { /* ignorieren */ }
+
+      // 3. Live-Updates abonnieren (inkl. Anfangszustand)
+      try {
+        const subscribeObjects = {
+          extruder:   ['temperature', 'target'],
+          heater_bed: ['temperature', 'target'],
+        };
+        if (piSensorKey) subscribeObjects[piSensorKey] = ['temperature'];
+
+        const result = await send('printer.objects.subscribe', { objects: subscribeObjects });
+
+        // Anfangswerte aus der Subscription-Antwort übernehmen
+        const s = result?.status ?? {};
+        setTemps({
+          extruder: s.extruder?.temperature   ?? 0,
+          bed:      s.heater_bed?.temperature ?? 0,
+          pi:       piSensorKey ? (s[piSensorKey]?.temperature ?? 0) : 0,
         });
+
+        // Sensor-Key für spätere Updates merken
+        activePiSensor.current = piSensorKey;
       } catch { /* Sensor evtl. nicht konfiguriert */ }
     };
 
@@ -81,10 +101,11 @@ export const MoonrakerProvider = ({ children }) => {
       // Temperatur-Updates
       if (msg.method === 'notify_status_update') {
         const status = msg.params?.[0] ?? {};
+        const piKey = activePiSensor.current;
         setTemps(prev => ({
           extruder: status.extruder?.temperature   ?? prev.extruder,
           bed:      status.heater_bed?.temperature ?? prev.bed,
-          pi:       status['temperature_sensor raspberry_pi']?.temperature ?? prev.pi,
+          pi:       piKey ? (status[piKey]?.temperature ?? prev.pi) : prev.pi,
         }));
       }
     };
