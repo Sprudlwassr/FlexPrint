@@ -1,0 +1,84 @@
+.actionsScreen {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    padding: 12px;
+    gap: 10px;
+}
+
+.actionGrid {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 10px;
+}
+
+.actionMoveBtn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    background-color: var(--bg-card);
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    padding: 10px 6px 6px;
+    transition: background-color 0.15s ease;
+}
+
+.actionMoveBtn:hover      { background-color: var(--bg-input); }
+.actionMoveBtnIcon        { color: var(--text-color); display: flex; align-items: center; }
+.actionMoveBtnLabel       { font-family: var(--main-font); font-size: 1.8vh; color: var(--text-color); }
+.actionMoveBtnBar         { width: 60%; height: 3px; border-radius: 2px; margin-top: 2px; }
+
+.actionPosBar {
+    display: flex;
+    justify-content: space-around;
+    padding: 6px 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+}
+
+.actionPosItem {
+    font-family: var(--main-font);
+    font-size: 2vh;
+    color: var(--text-color);
+}
+
+.actionDistanceBar {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.actionDistanceLabel {
+    font-family: var(--main-font);
+    font-size: 1.8vh;
+    color: var(--text-color);
+    text-align: center;
+    opacity: 0.75;
+}
+
+.actionDistanceBtns { display: flex; gap: 6px; }
+
+.actionDistanceBtn {
+    flex: 1;
+    font-family: var(--main-font);
+    font-size: 2vh;
+    color: var(--text-color);
+    background-color: var(--bg-card);
+    border: none;
+    border-radius: 8px;
+    padding: 8px 0;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+}
+
+.actionDistanceBtn:hover    { background-color: var(--bg-input); }
+.actionDistanceBtnActive    { background-color: var(--text-color); color: var(--bg-card); }
+.actionDistanceBtnActive:hover { opacity: 0.85; }

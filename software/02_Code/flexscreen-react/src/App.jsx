@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { BrowserRouter, Routes, Route, Link, useNavigate, useLocation } from 'react-router-dom';
 
+import { MoonrakerProvider, useMoonraker } from './context/MoonrakerContext';
 import Dashboard from './components/widgets/dashboardWidgets.jsx';
 import StartScreen from './screens/StartScreen';
 import TemperatureScreen from './screens/TemperatureScreen';
@@ -11,15 +12,13 @@ import ConfigurationScreen from './screens/ConfigurationScreen';
 import logo from './assets/Pictures/logo_brightmode_transparent.svg';
 
 const System = () => <div className="menuBody"></div>;
-
-const printerTemps = { extruder: 21, bed: 25, pi: 44 };
-
 const START_PAGES = ['/dashboard', '/jobs', '/system'];
 
 function Layout({ time }) {
   const navigate = useNavigate();
   const location = useLocation();
   const isStartPage = START_PAGES.includes(location.pathname);
+  const { temps } = useMoonraker();
 
   return (
     <div className="main">
@@ -35,9 +34,9 @@ function Layout({ time }) {
         </div>
         <div className="headerRight">
           <div className="headerTemps">
-            <span className="tempItem">🌡 {printerTemps.extruder}°</span>
-            <span className="tempItem">🛏 {printerTemps.bed}°</span>
-            <span className="tempItem">Pi: {printerTemps.pi}°</span>
+            <span className="tempItem">🌡 {temps.extruder.toFixed(1)}°</span>
+            <span className="tempItem">🛏 {temps.bed.toFixed(1)}°</span>
+            <span className="tempItem">Pi: {temps.pi.toFixed(1)}°</span>
           </div>
           {time}
         </div>
@@ -91,10 +90,12 @@ function App() {
 
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<StartScreen />} />
-        <Route path="*" element={<Layout time={time} />} />
-      </Routes>
+      <MoonrakerProvider>
+        <Routes>
+          <Route path="/" element={<StartScreen />} />
+          <Route path="*" element={<Layout time={time} />} />
+        </Routes>
+      </MoonrakerProvider>
     </BrowserRouter>
   );
 }

@@ -1,0 +1,60 @@
+.start-screen {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--bg-main);
+}
+
+.startWrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    background-color: var(--bg-main);
+}
+
+.startBody {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    padding: 0 32px;
+}
+
+.startLogo {
+    max-height: 26vh;
+    width: auto;
+    display: block;
+}
+
+.startDivider {
+    width: 2px;
+    height: 16vh;
+    background-color: var(--border);
+}
+
+.startStatusList {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.startStatusRow {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: var(--main-font);
+    font-size: 3vh;
+    color: var(--text-color);
+}
+
+.startStatusDot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.startStatusDotOn  { background-color: #16a34a; }
+.startStatusDotOff { background-color: #ef4444; }

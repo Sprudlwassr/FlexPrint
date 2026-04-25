@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import logo from '../assets/Pictures/logo_brightmode_transparent.svg';
-
-const printerTemps = { extruder: 21, bed: 25, pi: 44 };
+import { useMoonraker } from '../context/MoonrakerContext';
 
 const StatusRow = ({ connected, label }) => (
   <div className="startStatusRow">
@@ -14,6 +13,7 @@ const StatusRow = ({ connected, label }) => (
 const StartScreen = () => {
   const navigate = useNavigate();
   const [time, setTime] = useState('');
+  const { moonrakerConnected, klipperState, temps } = useMoonraker();
 
   useEffect(() => {
     const tick = () => {
@@ -34,9 +34,9 @@ const StartScreen = () => {
         <div className="headerCenter"></div>
         <div className="headerRight">
           <div className="headerTemps">
-            <span className="tempItem">🌡 {printerTemps.extruder}°</span>
-            <span className="tempItem">🛏 {printerTemps.bed}°</span>
-            <span className="tempItem">Pi: {printerTemps.pi}°</span>
+            <span className="tempItem">🌡 {temps.extruder.toFixed(1)}°</span>
+            <span className="tempItem">🛏 {temps.bed.toFixed(1)}°</span>
+            <span className="tempItem">Pi: {temps.pi.toFixed(1)}°</span>
           </div>
           {time}
         </div>
@@ -47,8 +47,8 @@ const StartScreen = () => {
         <img src={logo} alt="FlexPrint Logo" className="startLogo" />
         <div className="startDivider" />
         <div className="startStatusList">
-          <StatusRow connected={true}  label="Moonraker: connected" />
-          <StatusRow connected={false} label="Klipper: disconnected" />
+          <StatusRow connected={moonrakerConnected} label={`Moonraker: ${moonrakerConnected ? 'connected' : 'disconnected'}`} />
+          <StatusRow connected={klipperState === 'ready'} label={`Klipper: ${klipperState}`} />
         </div>
       </div>
 

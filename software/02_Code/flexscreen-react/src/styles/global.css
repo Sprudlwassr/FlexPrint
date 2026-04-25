@@ -1,0 +1,230 @@
+@import "tailwindcss";
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+@font-face {
+    font-family: Coolvetica Rg;
+    src: url('../assets/Fonts/Coolvetica Rg.otf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+:root {
+    --main-font:  'Coolvetica Rg';
+    --text-color: #232e4c;
+    --bg-main:    #bd9a76;
+    --bg-card:    #f2e8c6;
+    --bg-input:   #e8d9ac;
+    --border:     #F2E8C6;
+}
+
+/* ── Haupt-Layout ── */
+.main {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 12.5vh;
+    background-color: var(--bg-main);
+    padding: 20px;
+}
+
+.headerLeft {
+    flex: 1;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.headerCenter {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    font-family: var(--main-font);
+    font-size: 5vh;
+    color: var(--text-color);
+}
+
+.headerRight {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    font-family: var(--main-font);
+    font-size: 3vh;
+    color: var(--text-color);
+}
+
+.headerPrinterState {
+    font-family: var(--main-font);
+    font-size: 2.5vh;
+    color: var(--text-color);
+    white-space: nowrap;
+}
+
+.header-logo {
+    max-height: 12vh;
+    width: auto;
+    display: block;
+}
+
+.headerTemps {
+    display: flex;
+    flex-direction: row;
+    margin-right: 30px;
+    gap: 12px;
+    align-items: center;
+}
+
+.tempItem {
+    font-family: var(--main-font);
+    font-size: 2.5vh;
+    color: var(--text-color);
+    white-space: nowrap;
+}
+
+.headerStartBtn,
+.headerBackBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: var(--text-color);
+    font-family: var(--main-font);
+    font-size: 2.5vh;
+    padding: 8px 16px;
+    border-radius: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+}
+
+.headerStartBtn:hover,
+.headerBackBtn:hover {
+    background-color: rgba(242, 232, 198, 0.4);
+}
+
+/* ── Menü ── */
+.menu {
+    display: flex;
+    flex-direction: column;
+    height: 87.5vh;
+    border-top: 1px solid var(--border);
+}
+
+.menuBody {
+    height: 75vh;
+    background-color: var(--bg-main);
+    box-sizing: border-box;
+    position: relative;
+}
+
+.menuBodyHeader {
+    height: 33.33%;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 15px;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.header-item {
+    background-color: var(--bg-card);
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    font-family: var(--main-font);
+    font-size: 2.5vh;
+    color: var(--text-color);
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+}
+
+.header-item:hover { background-color: var(--bg-input); }
+.header-item:nth-child(3) { grid-column: span 2; }
+
+.menuBodyContentWrapper { height: 66.66%; }
+
+/* ── Footer ── */
+.menuFooter {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    height: 12.5vh;
+    background-color: var(--bg-main);
+    border-top: 1px solid var(--border);
+    padding: 10px 20px;
+}
+
+.footerBtn {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: var(--text-color);
+    font-family: var(--main-font);
+    padding: 8px 16px;
+    border-radius: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+}
+
+.footerBtn:hover { background-color: rgba(242, 232, 198, 0.4); }
+.footerBtnDanger { color: #b91c1c; }
+.footerBtnIcon   { font-size: 3.5vh; line-height: 1; }
+.footerBtnLabel  { font-size: 2.5vh; }
+
+/* ── Widget (SortableWidget) ── */
+.widget-tile {
+    height: 100%;
+    background: var(--bg-card);
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    touch-action: none;
+    overflow: hidden;
+    font-family: var(--main-font);
+    color: var(--text-color);
+}
+
+.widget-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8px;
+    font-size: 2vh;
+    font-weight: bold;
+    border-bottom: 1px solid rgba(35,46,76,0.15);
+    cursor: grab;
+}
+
+.widget-content {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2.5vh;
+}

@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useMoonraker } from '../../context/MoonrakerContext';
 
 const job = {
   status: 'Printing',
@@ -22,25 +23,32 @@ const StatRow = ({ label, value }) => (
 );
 
 const Dashboard = () => {
+  const { sendGcode } = useMoonraker();
   const [log, setLog] = useState([
     { type: 'info', text: 'Konsole bereit.' },
   ]);
   const [input, setInput] = useState('');
+  const [sending, setSending] = useState(false);
   const logEndRef = useRef(null);
 
   useEffect(() => {
     logEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [log]);
 
-  const send = () => {
+  const send = async () => {
     const cmd = input.trim();
-    if (!cmd) return;
-    setLog(prev => [
-      ...prev,
-      { type: 'send', text: `> ${cmd}` },
-      { type: 'recv', text: 'ok' },
-    ]);
+    if (!cmd || sending) return;
     setInput('');
+    setLog(prev => [...prev, { type: 'send', text: `> ${cmd}` }]);
+    setSending(true);
+    try {
+      await sendGcode(cmd);
+      setLog(prev => [...prev, { type: 'recv', text: 'ok' }]);
+    } catch (err) {
+      setLog(prev => [...prev, { type: 'error', text: `!! ${err.message}` }]);
+    } finally {
+      setSending(false);
+    }
   };
 
   const handleKey = (e) => {
@@ -106,7 +114,9 @@ const Dashboard = () => {
               onChange={e => setInput(e.target.value)}
               onKeyDown={handleKey}
             />
-            <button className="dashSendBtn" onClick={send}>Send</button>
+            <button className="dashSendBtn" onClick={send} disabled={sending}>
+              {sending ? '…' : 'Send'}
+            </button>
           </div>
         </div>
 

@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8"/>
+<title>FlexScreen – Projektdokumentation</title>
+<style>
+  body { font-family: Calibri, Arial, sans-serif; font-size: 11pt; color: #1a1a2e; margin: 50px 70px; line-height: 1.7; }
+  h1 { font-size: 24pt; color: #232e4c; border-bottom: 4px solid #bd9a76; padding-bottom: 10px; margin-top: 50px; }
+  h2 { font-size: 17pt; color: #232e4c; border-bottom: 2px solid #bd9a76; padding-bottom: 5px; margin-top: 40px; }
+  h3 { font-size: 13pt; color: #4a5568; margin-top: 28px; }
+  h4 { font-size: 11pt; color: #bd9a76; margin-top: 18px; margin-bottom: 4px; }
+  p  { margin: 6px 0 10px; }
+  ul, ol { margin: 6px 0 10px 24px; }
+  li { margin-bottom: 4px; }
+  code { font-family: Consolas, monospace; background: #f2e8c6; padding: 1px 6px; border-radius: 3px; font-size: 10pt; }
+  pre  { font-family: Consolas, monospace; background: #f5f0e8; padding: 14px 18px; border-radius: 6px; font-size: 9.5pt; border-left: 4px solid #bd9a76; margin: 10px 0; white-space: pre-wrap; word-break: break-word; }
+  table { border-collapse: collapse; width: 100%; margin: 14px 0; font-size: 10pt; }
+  th { background: #232e4c; color: #f2e8c6; padding: 9px 13px; text-align: left; }
+  td { padding: 8px 13px; border-bottom: 1px solid #e8d9ac; vertical-align: top; }
+  tr:nth-child(even) td { background: #faf6ee; }
+  .note  { background: #fff8ee; border-left: 4px solid #bd9a76; padding: 10px 16px; margin: 12px 0; border-radius: 0 6px 6px 0; }
+  .warn  { background: #fff3f3; border-left: 4px solid #ef4444; padding: 10px 16px; margin: 12px 0; border-radius: 0 6px 6px 0; }
+  .good  { background: #f0fff4; border-left: 4px solid #16a34a; padding: 10px 16px; margin: 12px 0; border-radius: 0 6px 6px 0; }
+  .badge { display: inline-block; background: #bd9a76; color: white; padding: 2px 9px; border-radius: 10px; font-size: 9pt; }
+  .file  { font-family: Consolas, monospace; font-size: 10pt; color: #232e4c; background: #f2e8c6; padding: 2px 8px; border-radius: 4px; }
+</style>
+</head>
+<body>
+
+<h1>FlexScreen – Vollständige Projektdokumentation</h1>
+<p><strong>Projekt:</strong> flexscreen-react &nbsp;|&nbsp; <strong>Stand:</strong> April 2026 &nbsp;|&nbsp; <strong>Autor:</strong> Samir El-Farfar</p>
+<p>Diese Dokumentation erklärt den vollständigen Quellcode des FlexScreen-Projekts. Nach dem Lesen verstehst du, wie jede Datei funktioniert, warum bestimmte Entscheidungen getroffen wurden und wie die einzelnen Teile zusammenspielen.</p>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<h1>1. Was ist FlexScreen?</h1>
+
+<p>FlexScreen ist eine <strong>React-basierte Touchscreen-Benutzeroberfläche</strong> zur Steuerung eines 3D-Druckers. Sie läuft auf einem <strong>Raspberry Pi 5</strong> mit einem angeschlossenen 800×480px-Touchscreen und kommuniziert mit <strong>Klipper</strong> (3D-Drucker-Firmware) über die <strong>Moonraker</strong>-API.</p>
+
+<h3>Was kann die App?</h3>
+<ul>
+  <li>Verbindungsstatus zu Moonraker und Klipper anzeigen</li>
+  <li>Echtzeittemperaturen (Extruder, Heizbett, Raspberry Pi) im Header anzeigen</li>
+  <li>Temperaturziele für Extruder und Heizbett setzen</li>
+  <li>Achsen des Druckers bewegen (X, Y, Z – Homing)</li>
+  <li>Druckdateien auswählen</li>
+  <li>Aktuellen Druckauftrag überwachen (Fortschritt, Layer, Zeiten)</li>
+  <li>G-Code direkt über eine Konsole an den Drucker senden</li>
+  <li>Z-Offset konfigurieren</li>
+</ul>
+
+<h3>Technologie-Stack</h3>
+<table>
+  <tr><th>Technologie</th><th>Version</th><th>Wozu</th></tr>
+  <tr><td>React</td><td>19.2</td><td>UI-Framework – Komponenten, State, Lifecycle</td></tr>
+  <tr><td>Vite</td><td>7.3</td><td>Build-Tool und Dev-Server (sehr schnell)</td></tr>
+  <tr><td>React Router DOM</td><td>7.13</td><td>Navigation zwischen Seiten ohne Seiten-Reload</td></tr>
+  <tr><td>TailwindCSS</td><td>4.2</td><td>CSS-Utility-Framework (nur im StartScreen genutzt)</td></tr>
+  <tr><td>@dnd-kit</td><td>6/10</td><td>Drag &amp; Drop (aktuell nicht aktiv im Dashboard)</td></tr>
+  <tr><td>WebSocket (Browser-API)</td><td>–</td><td>Echtzeit-Verbindung zu Moonraker</td></tr>
+</table>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<h1>2. Ordnerstruktur</h1>
+
+<pre>flexscreen-react/
+├── index.html                        ← HTML-Einstiegspunkt
+├── package.json                      ← Abhängigkeiten &amp; Build-Skripte
+├── vite.config.js                    ← Vite-Konfiguration
+├── Projektdokumentation.html         ← diese Datei
+│
+└── src/
+    ├── main.jsx                      ← React-Einstiegspunkt
+    ├── App.jsx                       ← Haupt-App: Router, Layout, Uhr
+    ├── style.css                     ← CSS-Imports (Einstieg)
+    ├── config.js                     ← Moonraker IP/URL Konfiguration
+    │
+    ├── context/
+    │   └── MoonrakerContext.jsx      ← WebSocket-Verbindung, geteilter State
+    │
+    ├── api/
+    │   └── moonrakerApi.jsx          ← HTTP-Hilfsfunktionen (Referenz)
+    │
+    ├── components/
+    │   ├── SortableWidget.jsx        ← Drag-&amp;-Drop Widget (nicht aktiv)
+    │   └── widgets/
+    │       └── dashboardWidgets.jsx  ← Dashboard-Komponente
+    │
+    ├── screens/
+    │   ├── StartScreen.jsx           ← Startbildschirm
+    │   ├── TemperatureScreen.jsx     ← Temperatureinstellung
+    │   ├── PrintScreen.jsx           ← Dateiauswahl
+    │   ├── ActionsScreen.jsx         ← Achsenbewegung &amp; Homing
+    │   ├── JobScreen.jsx             ← Druckauftrag-Status
+    │   └── ConfigurationScreen.jsx   ← Z-Offset
+    │
+    ├── assets/
+    │   ├── Fonts/                    ← Coolvetica &amp; weitere Schriften
+    │   └── Pictures/                 ← Logos (hell/dunkel, SVG/PNG)
+    │
+    └── styles/
+        ├── global.css                ← Reset, Variablen, Layout, Header, Footer
+        ├── startScreen.css
+        ├── dashboard.css
+        ├── jobScreen.css
+        ├── actionsScreen.css
+        ├── printScreen.css
+        ├── temperatureScreen.css
+        ├── configurationScreen.css
+        └── display800x480.css        ← Overrides für 800×480 Touchscreen</pre>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<h1>3. Wie React funktioniert (Grundlagen)</h1>
+
+<p>Bevor wir den Code erklären, kurz die wichtigsten React-Konzepte die im Projekt genutzt werden:</p>
+
+<h3>Komponenten</h3>
+<p>Jede Datei mit <code>.jsx</code> exportiert eine <strong>Komponente</strong> – eine JavaScript-Funktion, die HTML-ähnlichen Code (JSX) zurückgibt. Beispiel:</p>
+<pre>const Button = ({ label }) =&gt; (
+  &lt;button&gt;{label}&lt;/button&gt;
+);</pre>
+
+<h3>useState – lokaler Zustand</h3>
+<p>Mit <code>useState</code> merkt sich eine Komponente Werte zwischen Renders. Ändert sich der State, rendert React die Komponente neu.</p>
+<pre>const [count, setCount] = useState(0);
+// count = aktueller Wert, setCount = Funktion zum Ändern</pre>
+
+<h3>useEffect – Nebeneffekte</h3>
+<p>Führt Code aus, wenn die Komponente geladen wird oder sich bestimmte Werte ändern. Häufig für Timer, API-Calls oder Event-Listener.</p>
+<pre>useEffect(() =&gt; {
+  const id = setInterval(() =&gt; console.log('tick'), 1000);
+  return () =&gt; clearInterval(id); // Aufräumen beim Unmount
+}, []); // [] = nur einmal beim Start</pre>
+
+<h3>useRef – Referenz ohne Re-Render</h3>
+<p>Speichert Werte die sich ändern dürfen, ohne einen neuen Render auszulösen. Häufig für DOM-Elemente oder Timers.</p>
+
+<h3>Context (useContext)</h3>
+<p>Teilt Daten mit allen Komponenten im Baum, ohne Props durch alle Ebenen weiterzureichen. Im Projekt für den Moonraker-State genutzt.</p>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<h1>4. Einstiegspunkte</h1>
+
+<h2>4.1 index.html</h2>
+<p>Die einzige HTML-Datei des Projekts. Der Browser lädt sie zuerst.</p>
+<pre>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0,
+      maximum-scale=1.0, user-scalable=no" /&gt;</pre>
+<p><code>user-scalable=no</code> verhindert ungewolltes Zoomen auf dem Touchscreen. Das <code>&lt;div id="root"&gt;</code> ist der Anker, in den React die gesamte App rendert.</p>
+
+<h2>4.2 src/main.jsx</h2>
+<pre>import { StrictMode } from 'react'
+import { createRoot } from 'react-dom/client'
+import './style.css'
+import App from './App.jsx'
+
+createRoot(document.getElementById('root')).render(
+  &lt;StrictMode&gt;&lt;App /&gt;&lt;/StrictMode&gt;
+)</pre>
+<p><code>createRoot</code> verbindet React mit dem <code>#root</code>-Element. <code>StrictMode</code> aktiviert zusätzliche Entwicklungswarnungen (z.B. bei unsauberem useEffect). Die <code>style.css</code> wird hier global importiert – gilt für die gesamte App.</p>
+
+<h2>4.3 src/config.js</h2>
+<pre>export const MOONRAKER_CONFIG = {
+  IP:   '192.168.1.42', // ← Pi-IP-Adresse hier eintragen
+  PORT: 7125,
+  get WS_URL()   { return `ws://${this.IP}:${this.PORT}/websocket`; },
+  get HTTP_URL() { return `http://${this.IP}:${this.PORT}`; },
+};</pre>
+<p>Zentrale Konfigurationsdatei. <strong>Die IP-Adresse muss auf die des Raspberry Pi geändert werden.</strong> Die <code>get</code>-Syntax erstellt berechnete Eigenschaften – <code>WS_URL</code> wird jedes Mal neu zusammengebaut wenn sie gelesen wird. Port 7125 ist der Moonraker-Standard.</p>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<h1>5. App.jsx – Das Herzstück</h1>
+
+<p>Diese Datei enthält zwei Komponenten: <code>App</code> und <code>Layout</code>.</p>
+
+<h2>5.1 App-Komponente</h2>
+<pre>function App() {
+  const [time, setTime] = useState('');
+
+  useEffect(() =&gt; {
+    const update = () =&gt; {
+      const now = new Date();
+      setTime(now.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' }));
+    };
+    update();
+    const interval = setInterval(update, 1000);
+    return () =&gt; clearInterval(interval);
+  }, []);
+
+  return (
+    &lt;BrowserRouter&gt;
+      &lt;MoonrakerProvider&gt;
+        &lt;Routes&gt;
+          &lt;Route path="/" element={&lt;StartScreen /&gt;} /&gt;
+          &lt;Route path="*" element={&lt;Layout time={time} /&gt;} /&gt;
+        &lt;/Routes&gt;
+      &lt;/MoonrakerProvider&gt;
+    &lt;/BrowserRouter&gt;
+  );
+}</pre>
+
+<h4>Was passiert hier:</h4>
+<ul>
+  <li><strong>Live-Uhr:</strong> <code>setInterval</code> aktualisiert die Uhrzeit jede Sekunde. Das <code>return () =&gt; clearInterval</code> räumt auf, wenn die Komponente entfernt wird (Speicherleck-Vermeidung).</li>
+  <li><strong>BrowserRouter:</strong> Ermöglicht URL-basierte Navigation. Muss ganz außen sein, damit alle Kinder-Komponenten navigieren können.</li>
+  <li><strong>MoonrakerProvider:</strong> Stellt die WebSocket-Verbindung und Drucker-Daten für alle Kind-Komponenten bereit.</li>
+  <li><strong>Routes/Route:</strong> <code>path="/"</code> zeigt den StartScreen. <code>path="*"</code> fängt alle anderen URLs ab und zeigt das Layout mit Header/Footer.</li>
+  <li><strong>time als Prop:</strong> Die Uhr wird in <code>App</code> berechnet und als Prop an <code>Layout</code> übergeben, weil <code>useNavigate</code>/<code>useLocation</code> innerhalb des Routers aufgerufen werden müssen.</li>
+</ul>
+
+<h2>5.2 Layout-Komponente</h2>
+<pre>const START_PAGES = ['/dashboard', '/jobs', '/system'];
+
+function Layout({ time }) {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const isStartPage = START_PAGES.includes(location.pathname);
+  const { temps } = useMoonraker();
+
+  return (
+    &lt;div className="main"&gt;
+      &lt;div className="header"&gt;
+        &lt;div className="headerLeft"&gt;
+          {isStartPage
+            ? &lt;Link to="/" className="headerStartBtn"&gt;Start&lt;/Link&gt;
+            : &lt;button className="headerBackBtn" onClick={() =&gt; navigate(-1)}&gt;Back&lt;/button&gt;
+          }
+        &lt;/div&gt;
+        &lt;div className="headerCenter"&gt;
+          &lt;Link to="/"&gt;&lt;img src={logo} className="header-logo"/&gt;&lt;/Link&gt;
+        &lt;/div&gt;
+        &lt;div className="headerRight"&gt;
+          &lt;div className="headerTemps"&gt;
+            &lt;span className="tempItem"&gt;🌡 {temps.extruder.toFixed(1)}°&lt;/span&gt;
+            &lt;span className="tempItem"&gt;🛏 {temps.bed.toFixed(1)}°&lt;/span&gt;
+            &lt;span className="tempItem"&gt;Pi: {temps.pi.toFixed(1)}°&lt;/span&gt;
+          &lt;/div&gt;
+          {time}
+        &lt;/div&gt;
+      &lt;/div&gt;
+      ...Footer mit Dashboard/Job/System Links...
+    &lt;/div&gt;
+  );
+}</pre>
+
+<h4>Warum ist Layout eine eigene Komponente?</h4>
+<p><code>useNavigate()</code> und <code>useLocation()</code> dürfen nur innerhalb eines <code>&lt;BrowserRouter&gt;</code> aufgerufen werden. Da <code>App</code> selbst den Router rendert, muss die Nutzung dieser Hooks in einer Kind-Komponente stattfinden – daher <code>Layout</code>.</p>
+
+<h4>Back vs. Start Button:</h4>
+<p>Auf Hauptseiten (Dashboard, Jobs, System) gibt es einen <em>Start</em>-Button, der zum Startbildschirm führt. Auf Unterseiten (Temperature, Print, Actions, Configuration) gibt es einen <em>Back</em>-Button der mit <code>navigate(-1)</code> zur vorherigen Seite zurückgeht – wie der Browser-Zurück-Button.</p>
+
+<h4>Echte Temperaturen:</h4>
+<p><code>const { temps } = useMoonraker()</code> holt die Live-Temperaturen aus dem Moonraker-Context. <code>.toFixed(1)</code> rundet auf eine Nachkommastelle.</p>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<h1>6. MoonrakerContext.jsx – Die API-Verbindung</h1>
+
+<p>Diese Datei ist das technische Herzstück der App. Sie verwaltet die WebSocket-Verbindung zu Moonraker und stellt alle Drucker-Daten für alle Komponenten bereit.</p>
+
+<h2>6.1 Was ist ein Context?</h2>
+<p>Ein React Context ist ein globaler Datenspeicher. Jede Komponente innerhalb des <code>&lt;MoonrakerProvider&gt;</code> kann mit <code>useMoonraker()</code> auf die Daten zugreifen – ohne Props weitergeben zu müssen.</p>
+
+<h2>6.2 Was ist WebSocket?</h2>
+<p>Im Gegensatz zu HTTP (Anfrage → Antwort → fertig) bleibt eine WebSocket-Verbindung dauerhaft offen. Moonraker sendet Temperatur-Updates, Status-Änderungen etc. automatisch sobald sie passieren. Kein Polling nötig.</p>
+
+<h2>6.3 JSON-RPC Protokoll</h2>
+<p>Moonraker spricht JSON-RPC über WebSocket. Das bedeutet: Befehle werden als JSON-Objekte gesendet:</p>
+<pre>// Senden:
+{ "jsonrpc": "2.0", "method": "printer.info", "id": 1 }
+
+// Antwort:
+{ "jsonrpc": "2.0", "result": { "state": "ready", ... }, "id": 1 }
+
+// Moonraker sendet automatisch Events:
+{ "jsonrpc": "2.0", "method": "notify_status_update", "params": [...] }</pre>
+
+<h2>6.4 Der Code im Detail</h2>
+
+<h4>State-Variablen:</h4>
+<pre>const [moonrakerConnected, setMoonrakerConnected] = useState(false);
+const [klipperState, setKlipperState] = useState('disconnected');
+const [temps, setTemps] = useState({ extruder: 0, bed: 0, pi: 0 });</pre>
+
+<h4>send() – JSON-RPC Hilfsfunktion:</h4>
+<pre>const send = useCallback((method, params = {}) =&gt; {
+  return new Promise((resolve, reject) =&gt; {
+    const id = msgId++;
+    pendingRequests.current[id] = { resolve, reject };
+    ws.current.send(JSON.stringify({ jsonrpc: '2.0', method, params, id }));
+  });
+}, []);</pre>
+<p>Jede Anfrage bekommt eine eindeutige <code>id</code>. Die Antwort von Moonraker enthält dieselbe <code>id</code>, damit wir wissen welche Anfrage beantwortet wird. Das Promise wird aufgelöst sobald die Antwort eintrifft.</p>
+
+<h4>connect() – Verbindungsaufbau:</h4>
+<ol>
+  <li>WebSocket-Verbindung herstellen</li>
+  <li>Bei <code>onopen</code>: <code>printer.info</code> abfragen (Klipper-Status), dann Temperatur-Updates abonnieren</li>
+  <li>Bei <code>onmessage</code>: Antworten verarbeiten – entweder ausstehende Requests auflösen oder Events (notify_*) verarbeiten</li>
+  <li>Bei <code>onclose</code>/<code>onerror</code>: Status auf disconnected setzen und nach 3 Sekunden neu verbinden</li>
+</ol>
+
+<h4>Abonnieren von Live-Updates:</h4>
+<pre>await send('printer.objects.subscribe', {
+  objects: {
+    extruder:   ['temperature', 'target'],
+    heater_bed: ['temperature', 'target'],
+    'temperature_sensor raspberry_pi': ['temperature'],
+  },
+});</pre>
+<p>Danach schickt Moonraker bei jeder Temperaturänderung ein <code>notify_status_update</code>-Event. Der Sensor-Name <code>'temperature_sensor raspberry_pi'</code> muss in Anführungszeichen stehen weil er ein Leerzeichen enthält.</p>
+
+<h4>Bereitgestellte Werte:</h4>
+<table>
+  <tr><th>Wert</th><th>Typ</th><th>Beschreibung</th></tr>
+  <tr><td><code>moonrakerConnected</code></td><td>boolean</td><td>Ist die WebSocket-Verbindung aktiv?</td></tr>
+  <tr><td><code>klipperState</code></td><td>string</td><td>'ready', 'disconnected', 'shutdown', 'error'</td></tr>
+  <tr><td><code>klipperReady</code></td><td>boolean</td><td>Kurzform: klipperState === 'ready'</td></tr>
+  <tr><td><code>temps</code></td><td>object</td><td>{ extruder, bed, pi } als Zahlen in °C</td></tr>
+  <tr><td><code>sendGcode</code></td><td>function</td><td>G-Code-Befehl an Drucker senden</td></tr>
+</table>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<h1>7. Screens (Seiten)</h1>
+
+<h2>7.1 StartScreen.jsx</h2>
+<p>Der erste Bildschirm beim App-Start. Hat kein gemeinsames Layout (kein Header-Footer von App.jsx), sondern ein eigenes vollständiges Layout.</p>
+
+<h4>Aufbau:</h4>
+<table>
+  <tr><th>Bereich</th><th>CSS-Klasse</th><th>Inhalt</th></tr>
+  <tr><td>Header</td><td>.header</td><td>Leer links, leer Mitte, Temperaturen + Uhrzeit rechts</td></tr>
+  <tr><td>Body</td><td>.startBody</td><td>Logo | Trennlinie | Verbindungsstatus</td></tr>
+  <tr><td>Footer</td><td>.menuFooter</td><td>Power On, Restart, Shutdown (rot), Menu, Retry</td></tr>
+</table>
+
+<h4>Verbindungsstatus (live):</h4>
+<pre>const { moonrakerConnected, klipperState, temps } = useMoonraker();
+// ...
+&lt;StatusRow connected={moonrakerConnected}
+           label={`Moonraker: ${moonrakerConnected ? 'connected' : 'disconnected'}`} /&gt;
+&lt;StatusRow connected={klipperState === 'ready'}
+           label={`Klipper: ${klipperState}`} /&gt;</pre>
+<p>Die Punkte werden grün/rot je nach echtem Verbindungsstatus. Die Texte zeigen den aktuellen Zustand.</p>
+
+<h4>Footer-Buttons:</h4>
+<p>Power On, Restart, Shutdown und Retry haben noch keine Funktion (<code>onClick={() =&gt; {}}</code>) – sie warten auf die API-Integration. Der Menu-Button navigiert zu <code>/dashboard</code>.</p>
+
+<h2>7.2 dashboardWidgets.jsx (Dashboard)</h2>
+<p>Die zentrale Steuerseite. Besteht aus drei Bereichen:</p>
+
+<h4>1. Schnellzugriff-Header (menuBodyHeader):</h4>
+<pre>&lt;div className="header-item"&gt;Homing&lt;/div&gt;
+&lt;Link to="/temperature" className="header-item"&gt;Temperature&lt;/Link&gt;
+&lt;Link to="/print"       className="header-item"&gt;Print&lt;/Link&gt;
+&lt;Link to="/actions"     className="header-item"&gt;Actions&lt;/Link&gt;
+&lt;Link to="/configuration" className="header-item"&gt;Configuration&lt;/Link&gt;</pre>
+<p>Homing ist kein Link, da es keine eigene Seite hat. Alle anderen navigieren zur jeweiligen Seite.</p>
+
+<h4>2. Druckerstatus-Karten (dashLeft):</h4>
+<p>Zwei Karten links: <em>Druckerstatus</em> (Status-Badge, Dateiname, Layer, Temps, Z-Position) und <em>Fortschritt</em> (Fortschrittsbalken + Zeiten). Daten kommen aktuell aus dem hartkodiertem <code>job</code>-Objekt – werden später von der API befüllt.</p>
+
+<h4>3. G-Code Konsole:</h4>
+<pre>const send = async () =&gt; {
+  const cmd = input.trim();
+  if (!cmd || sending) return;
+  setInput('');
+  setLog(prev =&gt; [...prev, { type: 'send', text: `&gt; ${cmd}` }]);
+  setSending(true);
+  try {
+    await sendGcode(cmd);                                    // echter API-Call
+    setLog(prev =&gt; [...prev, { type: 'recv', text: 'ok' }]);
+  } catch (err) {
+    setLog(prev =&gt; [...prev, { type: 'error', text: `!! ${err.message}` }]);
+  } finally {
+    setSending(false);
+  }
+};</pre>
+<p><code>sendGcode</code> kommt aus dem MoonrakerContext und sendet den Befehl per WebSocket. Während des Sendens zeigt der Button <code>…</code> und ist deaktiviert. Fehler erscheinen rot im Log.</p>
+<p>Das <code>logEndRef</code> sorgt dafür, dass das Log automatisch nach unten scrollt wenn neue Einträge kommen:</p>
+<pre>useEffect(() =&gt; {
+  logEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+}, [log]);</pre>
+
+<h2>7.3 TemperatureScreen.jsx</h2>
+<p>Zwei Karten nebeneinander: Toolhead (Extruder) und Heated Bed.</p>
+
+<h4>Wichtig – zwei State-Variablen pro Karte:</h4>
+<pre>const [target, setTarget] = useState(defaultTarget); // gesetzter Wert (Anzeige)
+const [input, setInput] = useState(defaultTarget);    // Puffer (Eingabe)</pre>
+<p>Der angezeigte Zielwert (<code>target</code>) ändert sich erst beim Klick auf <em>Setzen</em>. Die Eingabe (<code>input</code>) kann frei verändert werden ohne sofort zu wirken. <code>apply()</code> kopiert dann input → target.</p>
+
+<h4>+/− Buttons:</h4>
+<pre>const adjust = (delta) =&gt; setInput(prev =&gt; Math.max(0, prev + delta));</pre>
+<p><code>Math.max(0, ...)</code> verhindert negative Temperaturen.</p>
+
+<h2>7.4 PrintScreen.jsx</h2>
+<p>Sortierbare Dateiliste. Daten kommen aus dem <code>mockFiles</code>-Array (Platzhalterdaten – später von Moonraker).</p>
+
+<h4>Sortierung:</h4>
+<pre>const sorted = [...mockFiles].sort((a, b) =&gt; {
+  if (sortBy === 'name') return a.name.localeCompare(b.name);
+  // ...nach Datum
+});</pre>
+<p><code>[...mockFiles]</code> erstellt eine Kopie des Arrays (wichtig! direktes Sortieren würde den Original-Array verändern). <code>localeCompare</code> sortiert Strings sprachsensitiv (Umlaute etc.).</p>
+
+<h4>Dateitypen:</h4>
+<p>Ordner zeigen nur Name + Datum. STL-Dateien zeigen Upload-Datum, Größe, Druckzeit und einen Druck-Button.</p>
+
+<h2>7.5 ActionsScreen.jsx</h2>
+<p>Bewegungssteuerung für die Druckerachsen. Aufbau von oben nach unten:</p>
+
+<h4>Movement Grid (4×2):</h4>
+<table>
+  <tr><th>Position</th><th>Button</th><th>Achsfarbe</th></tr>
+  <tr><td>Zeile 1</td><td>Home All, Y+, Home XY, Z+</td><td>Neutral, Magenta, Neutral, Cyan</td></tr>
+  <tr><td>Zeile 2</td><td>X−, Y−, X+, Z−</td><td>Grün, Magenta, Grün, Cyan</td></tr>
+</table>
+
+<h4>Distance Selector:</h4>
+<pre>const DISTANCES = [0.1, 0.5, 1, 5, 10, 25, 50];
+const [distance, setDistance] = useState(1);</pre>
+<p>Der aktive Wert wird dunkel hervorgehoben. Wird später beim Achsenbefehl als Schrittweite übergeben.</p>
+
+<h2>7.6 JobScreen.jsx</h2>
+<p>Zeigt den laufenden Druckauftrag. Daten kommen aktuell aus dem hartkodiertem <code>job</code>-Objekt.</p>
+
+<h4>CircularProgress – SVG-Kreis:</h4>
+<pre>const r = 44;
+const circ = 2 * Math.PI * r;           // Gesamtumfang des Kreises
+const offset = circ - (value/100)*circ; // nicht ausgefüllter Teil</pre>
+<p>Der Fortschrittskreis wird mit <code>stroke-dasharray</code> (Gesamtumfang) und <code>stroke-dashoffset</code> (fehlender Teil) gezeichnet. <code>transform="rotate(-90)"</code> startet den Kreis oben statt rechts.</p>
+
+<h4>Action-Buttons:</h4>
+<p>Pause, Cancel, Fine Tuning, Settings – jeweils mit farbigem Balken oben. Noch ohne API-Funktion (<code>onClick={() =&gt; {}}</code>).</p>
+
+<h2>7.7 ConfigurationScreen.jsx</h2>
+<p>Z-Offset einstellen (Abstand Düse zu Druckbett).</p>
+
+<h4>Drei State-Variablen:</h4>
+<pre>const [offset, setOffset] = useState(-0.10);   // aktuell angezeigter Wert
+const [input, setInput] = useState('-0.10');    // Texteingabe (String!)
+const [applied, setApplied] = useState(-0.10); // zuletzt gesetzter Wert</pre>
+<p><code>input</code> ist ein String, damit der Nutzer auch Zwischenzustände wie <code>"-0."</code> tippen kann ohne Fehler. Beim Setzen wird er mit <code>parseFloat()</code> in eine Zahl umgewandelt. <code>isNaN()</code> fängt ungültige Eingaben ab.</p>
+
+<h4>Schrittweiten:</h4>
+<pre>const STEPS = [0.01, 0.05, 0.1, 0.5];
+{[1, -1].map(sign =&gt; (
+  &lt;div className="tempCardControls"&gt;
+    {STEPS.map(step =&gt; (
+      &lt;button onClick={() =&gt; adjust(sign * step)}&gt;
+        {sign &gt; 0 ? '+' : '−'}{step}
+      &lt;/button&gt;
+    ))}
+  &lt;/div&gt;
+))}</pre>
+<p>Durch das Mapping über <code>[1, -1]</code> werden beide Zeilen (positive und negative Schritte) mit einer Schleife erzeugt statt 8 Buttons einzeln zu schreiben.</p>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<h1>8. Routing – Navigation im Detail</h1>
+
+<table>
+  <tr><th>URL-Pfad</th><th>Komponente</th><th>Linker Button</th><th>Beschreibung</th></tr>
+  <tr><td><code>/</code></td><td>StartScreen</td><td>–</td><td>Startbildschirm, eigenes Layout</td></tr>
+  <tr><td><code>/dashboard</code></td><td>Dashboard</td><td>Start</td><td>Status + G-Code-Konsole</td></tr>
+  <tr><td><code>/jobs</code></td><td>JobScreen</td><td>Start</td><td>Druckauftrag-Status</td></tr>
+  <tr><td><code>/system</code></td><td>System (leer)</td><td>Start</td><td>Platzhalter</td></tr>
+  <tr><td><code>/temperature</code></td><td>TemperatureScreen</td><td>Back</td><td>Temp. einstellen</td></tr>
+  <tr><td><code>/print</code></td><td>PrintScreen</td><td>Back</td><td>Dateiliste</td></tr>
+  <tr><td><code>/actions</code></td><td>ActionsScreen</td><td>Back</td><td>Achsenbewegung</td></tr>
+  <tr><td><code>/configuration</code></td><td>ConfigurationScreen</td><td>Back</td><td>Z-Offset</td></tr>
+</table>
+
+<h3>Verschachtelte Routes</h3>
+<p>Die inneren Routes (in <code>Layout</code>) sind in einen äußeren <code>path="*"</code>-Route eingebettet. Das bedeutet: Layout rendert immer Header und Footer, und der innere Router tauscht nur den Inhalt aus.</p>
+
+<div class="note"><strong>Warum zwei Router?</strong> Der äußere Router in App.jsx wechselt zwischen StartScreen (kein Header/Footer) und Layout (mit Header/Footer). Der innere Router in Layout wechselt zwischen den einzelnen Seiten innerhalb des Layouts.</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<h1>9. CSS-Architektur</h1>
+
+<h2>9.1 Aufbau</h2>
+<p><code>style.css</code> importiert nur die anderen Dateien – kein eigener CSS-Code:</p>
+<pre>@import "./styles/global.css";
+@import "./styles/startScreen.css";
+@import "./styles/dashboard.css";
+/* ... */
+@import "./styles/display800x480.css";</pre>
+
+<h2>9.2 CSS-Variablen (Design-Tokens)</h2>
+<p>In <code>global.css</code> definiert, überall nutzbar:</p>
+<pre>:root {
+  --main-font:  'Coolvetica Rg';
+  --text-color: #232e4c;   /* Dunkelblau – Text */
+  --bg-main:    #bd9a76;   /* Tan/Beige – Hintergrund */
+  --bg-card:    #f2e8c6;   /* Cream – Karten, Buttons */
+  --bg-input:   #e8d9ac;   /* Dunklere Cream – Inputs, Log */
+  --border:     #F2E8C6;   /* Trennlinien */
+}</pre>
+
+<h2>9.3 Layout-Höhen</h2>
+<table>
+  <tr><th>Bereich</th><th>Höhe</th><th>Bei 480px</th></tr>
+  <tr><td>Header (.header)</td><td>12.5vh</td><td>60px</td></tr>
+  <tr><td>Menü (.menu)</td><td>87.5vh</td><td>420px</td></tr>
+  <tr><td>MenuBody (.menuBody)</td><td>75vh</td><td>360px</td></tr>
+  <tr><td>MenuFooter (.menuFooter)</td><td>12.5vh</td><td>60px</td></tr>
+</table>
+
+<h2>9.4 position: absolute Pattern</h2>
+<p>Alle Screen-Komponenten (Job, Actions, Print, Temperature, Config, Dashboard) nutzen:</p>
+<pre>.jobScreen {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+}</pre>
+<p>Das funktioniert weil <code>.menuBody</code> <code>position: relative</code> hat. So füllt jeder Screen den gesamten menuBody – unabhängig davon wie hoch der <code>menuBodyContentWrapper</code> ist.</p>
+
+<h2>9.5 display800x480.css – Touchscreen-Anpassungen</h2>
+<p>Wird nur aktiv wenn: <code>max-height: 500px AND orientation: landscape</code></p>
+<p>Hauptproblem: Bei 480px Höhe ist <code>1vh = 4.8px</code>. Werte unter <code>2.5vh</code> werden kleiner als 12px (unlesbar).</p>
+<p>Lösung: <code>clamp(minimum, vh-Wert, maximum)</code> setzt eine Untergrenze:</p>
+<pre>/* Ohne clamp: 1.7vh bei 480px = 8.2px (zu klein!) */
+.jobStatusBadge { font-size: 1.7vh; }
+
+/* Mit clamp: mindestens 10px, vh-basiert, max 14px */
+.jobStatusBadge { font-size: clamp(10px, 1.7vh, 14px); }</pre>
+<p>Zusätzlich: <code>touch-action: manipulation</code> auf allen interaktiven Elementen entfernt die 300ms Tap-Verzögerung auf Touch-Geräten.</p>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<h1>10. api/moonrakerApi.jsx – HTTP-Referenz</h1>
+
+<p>Diese Datei enthält HTTP-Hilfsfunktionen. Sie ist <strong>noch nicht in die UI eingebunden</strong> – sie dient als Referenz und wird später für Aktionen genutzt, die kein Live-Update brauchen.</p>
+
+<table>
+  <tr><th>Funktion</th><th>Moonraker-Endpoint</th><th>Zweck</th></tr>
+  <tr><td><code>emergencyStop()</code></td><td>POST /printer/emergency_stop</td><td>Sofortiger Not-Aus</td></tr>
+  <tr><td><code>restartFirmware()</code></td><td>POST /printer/firmware_restart</td><td>Klipper neu starten</td></tr>
+  <tr><td><code>sendGcode(script)</code></td><td>POST /printer/gcode/script</td><td>G-Code senden (HTTP)</td></tr>
+  <tr><td><code>setTemperature(heater, temp)</code></td><td>POST /printer/gcode/script</td><td>Temperatur setzen</td></tr>
+  <tr><td><code>controlPrint(action)</code></td><td>POST /printer/print/{action}</td><td>pause/resume/cancel</td></tr>
+</table>
+
+<div class="note">
+  <strong>WebSocket vs. HTTP:</strong> Im MoonrakerContext wird G-Code über WebSocket gesendet (schneller, gleiche Verbindung). Die HTTP-Funktionen in moonrakerApi.jsx sind für einmalige Aktionen gedacht die keine offene Verbindung brauchen.
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<h1>11. Datenfluss – Wie die Teile zusammenspielen</h1>
+
+<pre>
+Browser startet
+    │
+    ▼
+index.html → main.jsx
+    │
+    ▼
+App.jsx
+  ├── Startet Live-Uhr (useState + setInterval)
+  ├── BrowserRouter (ermöglicht Navigation)
+  ├── MoonrakerProvider
+  │     ├── Öffnet WebSocket zu ws://&lt;PI-IP&gt;:7125/websocket
+  │     ├── Fragt printer.info ab → klipperState
+  │     ├── Abonniert Temperatur-Updates
+  │     └── Stellt { moonrakerConnected, klipperState, temps, sendGcode } bereit
+  │
+  └── Routes
+        ├── "/" → StartScreen
+        │           └── useMoonraker() → zeigt echten Verbindungsstatus + Temps
+        │
+        └── "*" → Layout
+                    ├── useMoonraker() → zeigt Temps im Header
+                    ├── Header (Logo + Temps + Uhr)
+                    ├── Innere Routes
+                    │     ├── /dashboard → dashboardWidgets
+                    │     │                  └── useMoonraker() → sendGcode()
+                    │     ├── /temperature → TemperatureScreen
+                    │     ├── /print → PrintScreen
+                    │     ├── /actions → ActionsScreen
+                    │     ├── /jobs → JobScreen
+                    │     └── /configuration → ConfigurationScreen
+                    └── Footer (Dashboard/Job/System Navigation)
+</pre>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<h1>12. Offene Punkte &amp; nächste Schritte</h1>
+
+<table>
+  <tr><th>Bereich</th><th>Was fehlt</th><th>Wie umsetzen</th></tr>
+  <tr><td>StartScreen</td><td>Power On, Restart, Shutdown ohne Funktion</td><td>moonrakerApi.jsx-Funktionen aufrufen</td></tr>
+  <tr><td>Dashboard</td><td>Druckerstatus aus hartkodiertem Objekt</td><td>Echte Daten aus MoonrakerContext (printer.objects.subscribe)</td></tr>
+  <tr><td>TemperatureScreen</td><td>Setzen-Button ohne API-Call</td><td><code>sendGcode</code> mit <code>SET_HEATER_TEMPERATURE</code></td></tr>
+  <tr><td>PrintScreen</td><td>Dateiliste hartkodiert, Druck-Button ohne Funktion</td><td>Moonraker /server/files/list, dann /printer/print/start</td></tr>
+  <tr><td>ActionsScreen</td><td>Alle Buttons ohne Funktion</td><td>G-Code: G28 (Homing), G0 X/Y/Z (Bewegung)</td></tr>
+  <tr><td>JobScreen</td><td>Daten hartkodiert, Pause/Cancel ohne Funktion</td><td>print_stats aus WebSocket, controlPrint() aus API</td></tr>
+  <tr><td>ConfigurationScreen</td><td>Setzen ohne API-Call</td><td>G-Code: SET_GCODE_OFFSET Z=...</td></tr>
+  <tr><td>System-Seite</td><td>Komplett leer</td><td>Systeminfos, Neustart-Funktionen</td></tr>
+</table>
+
+<div class="good">
+  <strong>Nächster empfohlener Schritt:</strong> Dashboard mit echten Daten versorgen. Im MoonrakerContext werden bereits Temperatur-Updates empfangen – diese können einfach an die Dashboard-Karten weitergegeben werden. Dann <code>printer.objects.subscribe</code> um <code>print_stats</code> erweitern für Dateiname, Layer und Fortschritt.
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<h1>13. Projekt starten &amp; deployen</h1>
+
+<h3>Entwicklung (Laptop):</h3>
+<pre>npm run dev</pre>
+<p>Öffnet den Dev-Server auf <code>http://localhost:5173</code>. Änderungen erscheinen sofort (Hot Module Replacement).</p>
+
+<h3>Auf dem Raspberry Pi:</h3>
+<pre># Projekt kopieren (einmalig vom Laptop):
+scp -r "/pfad/zum/projekt" pi@192.168.1.42:~/flexscreen-react
+
+# Auf dem Pi:
+cd ~/flexscreen-react
+npm install
+npm run dev -- --host   # --host macht den Server im Netzwerk erreichbar</pre>
+
+<h3>Kiosk-Modus (Pi-Display):</h3>
+<pre>chromium-browser --kiosk --noerrdialogs http://localhost:5173</pre>
+
+<h3>Produktions-Build:</h3>
+<pre>npm run build          # erstellt optimierte Dateien in dist/
+npm run preview        # Vorschau des Build-Ergebnisses</pre>
+
+</body>
+</html>

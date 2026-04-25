@@ -1,0 +1,73 @@
+/*
+ * Overrides für 800×480px Touchscreen (z.B. Raspberry Pi 7" Display)
+ * Bei 480px Höhe gilt: 1vh = 4.8px → Werte unter 2.5vh werden < 12px (unlesbar)
+ * Diese Datei setzt Mindestgrössen über clamp() oder direkte px-Werte.
+ */
+
+@media screen and (max-height: 500px) and (orientation: landscape) {
+
+  /* ── Touch: 300ms Verzögerung entfernen ── */
+  button, a, input {
+    touch-action: manipulation;
+  }
+
+  /* ── Header ── */
+  .tempItem            { font-size: clamp(11px, 2.5vh, 20px); }
+  .headerStartBtn,
+  .headerBackBtn       { font-size: clamp(12px, 2.5vh, 20px); min-height: 40px; }
+  .headerRight         { font-size: clamp(13px, 3vh,   22px); }
+  .header-item         { font-size: clamp(11px, 2.5vh, 20px); }
+
+  /* ── Footer ── */
+  .footerBtnLabel      { font-size: clamp(11px, 2.5vh, 20px); }
+  .footerBtnIcon       { font-size: clamp(16px, 3.5vh, 28px); }
+
+  /* ── Dashboard ── */
+  .dashCardTitle       { font-size: clamp(10px, 1.8vh, 16px); }
+  .dashStatusBadge     { font-size: clamp(10px, 1.7vh, 14px); }
+  .dashFileName        { font-size: clamp(10px, 1.8vh, 16px); }
+  .dashStatLabel       { font-size: clamp(10px, 1.7vh, 14px); }
+  .dashStatValue       { font-size: clamp(11px, 1.9vh, 16px); }
+  .dashProgressPct     { font-size: clamp(10px, 1.8vh, 16px); }
+  .dashLog             { font-size: clamp(10px, 1.6vh, 14px); }
+  .dashGcodeInput      { font-size: clamp(11px, 1.8vh, 16px); }
+  .dashSendBtn         { font-size: clamp(11px, 1.8vh, 16px); min-height: 36px; }
+
+  /* ── Job Screen ── */
+  .jobFileName         { font-size: clamp(12px, 2.6vh, 22px); }
+  .jobStatusBadge      { font-size: clamp(10px, 1.7vh, 14px); }
+  .jobLayer            { font-size: clamp(10px, 1.7vh, 14px); }
+  .jobStatChipLabel    { font-size: clamp(9px,  1.4vh, 12px); }
+  .jobStatChipValue    { font-size: clamp(11px, 1.9vh, 16px); }
+  .jobActionBtnLabel   { font-size: clamp(10px, 1.8vh, 16px); }
+  .jobStatChip         { padding: 4px 8px; }
+  .jobActionBtn        { min-height: 44px; }
+
+  /* ── Actions Screen ── */
+  .actionMoveBtnLabel  { font-size: clamp(10px, 1.8vh, 16px); }
+  .actionPosItem       { font-size: clamp(11px, 2vh,   16px); }
+  .actionDistanceLabel { font-size: clamp(10px, 1.8vh, 14px); }
+  .actionDistanceBtn   { font-size: clamp(11px, 2vh,   16px); min-height: 36px; }
+  .actionMoveBtn       { min-height: 60px; }
+
+  /* ── Print Screen ── */
+  .printSortLabel      { font-size: clamp(11px, 2vh,   16px); }
+  .printSortBtn        { font-size: clamp(11px, 2vh,   16px); }
+  .printFileName       { font-size: clamp(11px, 2.2vh, 18px); }
+  .printFileDetail     { font-size: clamp(9px,  1.6vh, 14px); }
+  .printActionBtn      { min-width: 40px; min-height: 40px; }
+  .printFileItem       { padding: 8px 12px; }
+
+  /* ── Temperature Screen ── */
+  .tempCardTitle       { font-size: clamp(14px, 3vh,   22px); }
+  .tempCardLabel       { font-size: clamp(11px, 2.2vh, 18px); }
+  .tempCardValue       { font-size: clamp(13px, 2.8vh, 22px); }
+  .tempBtn             { font-size: clamp(11px, 2vh,   16px); min-height: 38px; }
+  .tempInput           { font-size: clamp(12px, 2.5vh, 20px); padding: 8px; }
+  .tempSetBtn          { font-size: clamp(11px, 2.2vh, 18px); min-height: 38px; }
+
+  /* ── Configuration Screen ── */
+  .configCardTitle     { font-size: clamp(14px, 3vh,   22px); }
+  .configLabel         { font-size: clamp(11px, 2.2vh, 18px); }
+  .configValue         { font-size: clamp(13px, 2.8vh, 22px); }
+}
