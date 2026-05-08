@@ -35,18 +35,22 @@ export const MoonrakerProvider = ({ children }) => {
   const connect = useCallback(() => {
     if (ws.current) ws.current.close();
 
+    console.log(`[Moonraker] Verbinde zu ${MOONRAKER_CONFIG.WS_URL}…`);
     const socket = new WebSocket(MOONRAKER_CONFIG.WS_URL);
     ws.current = socket;
 
     socket.onopen = async () => {
+      console.log('[Moonraker] ✅ WebSocket verbunden');
       setMoonrakerConnected(true);
       clearTimeout(reconnectTimer.current);
 
       // 1. Klipper-Status abfragen
       try {
         const info = await send('printer.info');
+        console.log('[Moonraker] Klipper-Status:', info.state, info);
         setKlipperState(info.state ?? 'unknown');
-      } catch {
+      } catch (e) {
+        console.error('[Moonraker] ❌ printer.info fehlgeschlagen:', e);
         setKlipperState('error');
       }
 
@@ -55,8 +59,12 @@ export const MoonrakerProvider = ({ children }) => {
       try {
         const objectList = await send('printer.objects.list');
         const keys = objectList?.objects ?? [];
+        console.log('[Moonraker] Verfügbare Objekte:', keys);
         piSensorKey = keys.find(k => k.startsWith('temperature_sensor')) ?? null;
-      } catch { /* ignorieren */ }
+        console.log('[Moonraker] Pi-Sensor gefunden:', piSensorKey ?? 'keiner');
+      } catch (e) {
+        console.warn('[Moonraker] objects.list fehlgeschlagen:', e);
+      }
 
       // 3. Live-Updates abonnieren (inkl. Anfangszustand)
       try {
@@ -67,8 +75,8 @@ export const MoonrakerProvider = ({ children }) => {
         if (piSensorKey) subscribeObjects[piSensorKey] = ['temperature'];
 
         const result = await send('printer.objects.subscribe', { objects: subscribeObjects });
+        console.log('[Moonraker] Subscription Anfangswerte:', result?.status);
 
-        // Anfangswerte aus der Subscription-Antwort übernehmen
         const s = result?.status ?? {};
         setTemps({
           extruder: s.extruder?.temperature   ?? 0,
@@ -76,9 +84,10 @@ export const MoonrakerProvider = ({ children }) => {
           pi:       piSensorKey ? (s[piSensorKey]?.temperature ?? 0) : 0,
         });
 
-        // Sensor-Key für spätere Updates merken
         activePiSensor.current = piSensorKey;
-      } catch { /* Sensor evtl. nicht konfiguriert */ }
+      } catch (e) {
+        console.error('[Moonraker] ❌ Subscription fehlgeschlagen:', e);
+      }
     };
 
     socket.onmessage = (event) => {
@@ -94,9 +103,18 @@ export const MoonrakerProvider = ({ children }) => {
       }
 
       // Server-seitige Events (notify_*)
-      if (msg.method === 'notify_klippy_ready')        setKlipperState('ready');
-      if (msg.method === 'notify_klippy_disconnected') setKlipperState('disconnected');
-      if (msg.method === 'notify_klippy_shutdown')     setKlipperState('shutdown');
+      if (msg.method === 'notify_klippy_ready') {
+        console.log('[Moonraker] ✅ Klipper bereit');
+        setKlipperState('ready');
+      }
+      if (msg.method === 'notify_klippy_disconnected') {
+        console.warn('[Moonraker] ⚠️ Klipper getrennt');
+        setKlipperState('disconnected');
+      }
+      if (msg.method === 'notify_klippy_shutdown') {
+        console.warn('[Moonraker] ⚠️ Klipper shutdown');
+        setKlipperState('shutdown');
+      }
 
       // Temperatur-Updates
       if (msg.method === 'notify_status_update') {
@@ -110,15 +128,16 @@ export const MoonrakerProvider = ({ children }) => {
       }
     };
 
-    socket.onerror = () => {
+    socket.onerror = (e) => {
+      console.error('[Moonraker] ❌ WebSocket Fehler:', e);
       setMoonrakerConnected(false);
       setKlipperState('disconnected');
     };
 
     socket.onclose = () => {
+      console.warn('[Moonraker] Verbindung getrennt — reconnect in 3s');
       setMoonrakerConnected(false);
       setKlipperState('disconnected');
-      // Nach 3 Sekunden neu verbinden
       reconnectTimer.current = setTimeout(connect, 3000);
     };
   }, [send]);
