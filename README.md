@@ -1,3 +1,4 @@
+<img width="3072" height="4096" alt="IMG_20261012_215731451" src="https://github.com/user-attachments/assets/85f44ab6-7e4f-4317-bf77-813466ddec76" />
 \# Diploma thesis FlexPrint
 
 
