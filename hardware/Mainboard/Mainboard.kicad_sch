@@ -7874,7 +7874,7 @@
 		)
 		(uuid "f44ffbfa-8855-4568-b2d6-6ff24fbf144a")
 	)
-	(text_box "TODO:\n	-part cooling fans auf 24V (derzeitige Treiber halten 24V auch aus)\n	-mehr versorgunsanschlüsse (5V,12V usw)\n	-Verpolschutz\n	-Position Nucleo auf der Platine ändern!!!\n\nEventuelle TODO's:\n	-wenn viel mehr funktionen benötigt werden -> eigenen µC verwenden statt devBoard\n		-beschaltung dafür	\n		-USB für Raspi"
+	(text_box "TODO:\n	-part cooling fans auf 24V (derzeitige Treiber halten 24V auch aus)\n	-mehr versorgunsanschlüsse (5V,12V usw)\n	-Verpolschutz\n	-Position Nucleo auf der Platine ändern!!!\n\nEventuelle TODO's:\n	-wenn viel mehr funktionen benötigt werden -> eigenen µC verwenden statt devBoard\n		-beschaltung dafür	\n		-USB für Raspi\n\nWICHTIG:\n	-MIC FET-Treiber ERSETZT DURCH ADP3634!!"
 		(exclude_from_sim no)
 		(at 422.91 10.16 0)
 		(size 105.41 44.45)
@@ -11970,7 +11970,7 @@
 		)
 		(uuid "27f13d02-22a9-4e61-9f27-0ee8375c8f16")
 	)
-	(label "Z4_2B"
+	(label "E2_2B"
 		(at 274.32 201.93 0)
 		(effects
 			(font
@@ -12100,7 +12100,7 @@
 		)
 		(uuid "86f10e0b-b2b2-402e-bfa5-63224bc2badc")
 	)
-	(label "Z4_1B"
+	(label "E2_1B"
 		(at 274.32 199.39 0)
 		(effects
 			(font
@@ -12200,7 +12200,7 @@
 		)
 		(uuid "c6381ccd-5c63-486b-86c8-9c3de48ab7fa")
 	)
-	(label "Z4_1A"
+	(label "E2_1A"
 		(at 274.32 194.31 0)
 		(effects
 			(font
@@ -12230,7 +12230,7 @@
 		)
 		(uuid "ed413d23-16c3-4f5e-9252-c2d64de8cc1b")
 	)
-	(label "Z4_2A"
+	(label "E2_2A"
 		(at 274.32 196.85 0)
 		(effects
 			(font
@@ -12316,7 +12316,7 @@
 			)
 		)
 	)
-	(global_label "Z4_STEP"
+	(global_label "E2_STEP"
 		(shape input)
 		(at 238.76 191.77 180)
 		(fields_autoplaced yes)
@@ -12328,7 +12328,7 @@
 		)
 		(uuid "1617a292-f66d-4617-8d2d-ba90cdaba02d")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 227.7921 191.77 0)
+			(at 228.5068 191.77 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13020,7 +13020,7 @@
 			)
 		)
 	)
-	(global_label "Z4_EN"
+	(global_label "E2_EN"
 		(shape output)
 		(at 226.06 142.24 180)
 		(fields_autoplaced yes)
@@ -13032,7 +13032,7 @@
 		)
 		(uuid "6f54c76d-849c-43d3-a593-1499394a69fa")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 217.2087 142.24 0)
+			(at 217.9234 142.24 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13174,7 +13174,7 @@
 			)
 		)
 	)
-	(global_label "Z4_DIR"
+	(global_label "E2_DIR"
 		(shape output)
 		(at 252.73 106.68 0)
 		(fields_autoplaced yes)
@@ -13186,7 +13186,7 @@
 		)
 		(uuid "9038e7b2-9bdc-4fb3-b2a6-a64be5000e77")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 261.5924 106.68 0)
+			(at 261.5319 106.68 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13218,7 +13218,7 @@
 			)
 		)
 	)
-	(global_label "Z4_EN"
+	(global_label "E2_EN"
 		(shape input)
 		(at 238.76 186.69 180)
 		(fields_autoplaced yes)
@@ -13230,7 +13230,7 @@
 		)
 		(uuid "954843c3-cad8-4b48-afdb-432ed1f8b992")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 229.9087 186.69 0)
+			(at 230.6234 186.69 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13548,7 +13548,7 @@
 			)
 		)
 	)
-	(global_label "Z4_STEP"
+	(global_label "E2_STEP"
 		(shape output)
 		(at 252.73 104.14 0)
 		(fields_autoplaced yes)
@@ -13560,7 +13560,7 @@
 		)
 		(uuid "b2276d83-77c9-4df6-aef0-a30ca4b2bb70")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 263.0437 104.14 0)
+			(at 262.9832 104.14 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13812,7 +13812,7 @@
 			)
 		)
 	)
-	(global_label "Z4_DIR"
+	(global_label "E2_DIR"
 		(shape input)
 		(at 238.76 194.31 180)
 		(fields_autoplaced yes)
@@ -13824,7 +13824,7 @@
 		)
 		(uuid "d01234a0-5b02-4e82-baae-36debfa3cbbe")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 229.2434 194.31 0)
+			(at 229.9581 194.31 0)
 			(effects
 				(font
 					(size 1.27 1.27)
